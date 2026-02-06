@@ -1,0 +1,69 @@
+<view class="container">
+  <!-- 平台数据概览 -->
+  <view class="stats-header">
+    <view class="header-title">📊 平台数据</view>
+  </view>
+
+  <view class="stats-cards">
+    <view class="stat-card">
+      <view class="stat-value">{{platformStats.totalResources}}</view>
+      <view class="stat-label">资源总数</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{platformStats.totalViews}}</view>
+      <view class="stat-label">总浏览量</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{platformStats.totalCollects}}</view>
+      <view class="stat-label">总收藏量</view>
+    </view>
+  </view>
+
+  <!-- 分类统计 -->
+  <view class="section">
+    <view class="section-title">📚 分类分布</view>
+    <view class="category-list">
+      <view class="category-item" wx:for="{{categoryStats}}" wx:key="_id">
+        <view class="category-name">{{_id}}</view>
+        <view class="category-count">{{count}} 篇</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门标签 -->
+  <view class="section">
+    <view class="section-title">🔥 热门标签</view>
+    <view class="tags-container">
+      <view 
+        class="tag-item" 
+        wx:for="{{hotTags}}" 
+        wx:key="tag"
+        bindtap="searchTag"
+        data-tag="{{item.tag}}">
+        <text class="tag-name">{{item.tag}}</text>
+        <text class="tag-count">{{item.count}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的数据 -->
+  <view class="section">
+    <view class="section-title">👤 我的数据</view>
+    <view class="user-stats">
+      <view class="user-stat-item">
+        <view class="user-stat-icon">⭐</view>
+        <view class="user-stat-info">
+          <view class="user-stat-value">{{userStats.collectCount}}</view>
+          <view class="user-stat-label">我的收藏</view>
+        </view>
+      </view>
+      <view class="user-stat-item">
+        <view class="user-stat-icon">🕒</view>
+        <view class="user-stat-info">
+          <view class="user-stat-value">{{userStats.historyCount}}</view>
+          <view class="user-stat-label">浏览历史</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

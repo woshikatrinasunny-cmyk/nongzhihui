@@ -1,0 +1,93 @@
+.about-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
+  padding-bottom: 40rpx;
+}
+
+.app-info {
+  text-align: center;
+  padding: 80rpx 40rpx 60rpx;
+  background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+  color: white;
+}
+
+.app-logo {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.app-version {
+  font-size: 28rpx;
+  opacity: 0.9;
+  margin-bottom: 20rpx;
+}
+
+.app-desc {
+  font-size: 30rpx;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.section {
+  margin: 40rpx 0;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  padding: 0 30rpx 20rpx;
+}
+
+.value-card {
+  background: white;
+  margin: 0 30rpx;
+  border-radius: 16rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.value-item {
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.value-item:last-child {
+  margin-bottom: 0;
+}
+
+.value-emoji {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.value-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.value-desc {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.copyright {
+  text-align: center;
+  padding: 60rpx 40rpx 40rpx;
+  color: #999;
+  font-size: 24rpx;
+  line-height: 2;
+}
+
+.copyright text {
+  display: block;
+}

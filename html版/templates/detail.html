@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% set active_tab = '' %}
+{% block title %}{{ resource.title }}{% endblock %}
+{% block extra_style %}
+.detail-hero{position:relative;height:260px;overflow:hidden}
+.detail-hero img{width:100%;height:100%;object-fit:cover}
+.detail-hero .overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.2) 50%,transparent)}
+.detail-hero .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;color:#fff}
+.detail-hero .hero-content h1{font-size:26px;font-weight:700;line-height:1.4;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.detail-wrap{max-width:860px;margin:0 auto}
+.detail-card{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);padding:36px;margin-bottom:20px}
+.detail-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}
+.meta-source,.meta-time{font-size:13px;color:var(--tlr)}
+.detail-summary{background:linear-gradient(135deg,#f1f8e9,#e8f5e9);border-radius:var(--rs);padding:20px 24px;margin-bottom:24px;border-left:4px solid var(--gd)}
+.summary-head{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:var(--gd);margin-bottom:10px;letter-spacing:1px}
+.summary-text{font-size:15px;color:var(--tl);line-height:1.8}
+.detail-content{font-size:15px;line-height:2;color:var(--t);margin-bottom:24px}
+.detail-content p{margin-bottom:14px;text-indent:2em}
+.detail-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.detail-tags .tag{padding:5px 16px;background:var(--gbg);color:var(--gd);border-radius:20px;font-size:13px;cursor:pointer;transition:all .25s;font-weight:500}
+.detail-tags .tag:hover{background:#C8E6C9;transform:translateY(-1px)}
+.source-tip{text-align:center;font-size:12px;color:var(--tlr);padding:16px 0;border-top:1px solid #f0f0f0}
+.action-bar{display:flex;gap:14px;margin-bottom:28px}
+.action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;background:var(--w);border-radius:var(--rs);box-shadow:var(--sh);cursor:pointer;font-size:14px;color:var(--tl);transition:all .25s;border:none;width:100%;font-family:'Noto Serif SC',serif;letter-spacing:1px}
+.action-btn:hover{color:var(--gd);background:var(--gbg);transform:translateY(-2px);box-shadow:var(--shl)}
+.action-btn.collected{color:var(--gd);background:var(--gbg)}
+.action-btn .emoji{font-size:20px}
+.related{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);padding:28px;overflow:hidden}
+.related h3{display:flex;align-items:center;gap:8px;font-size:18px;color:var(--gd);margin-bottom:20px;letter-spacing:1px}
+.related-item{padding:16px 0;border-bottom:1px solid #f5f5f5;transition:all .2s}
+.related-item:last-child{border-bottom:none}
+.related-item:hover{padding-left:8px}
+.related-item a{display:block}
+.related-title{font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:.5px}
+.related-meta{display:flex;gap:8px;font-size:12px;color:var(--tlr)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--gd);font-size:14px;margin-bottom:16px;font-weight:500;letter-spacing:.5px}
+.back-link:hover{text-decoration:underline}
+{% endblock %}
+
+{% block content %}
+<div class="detail-hero">
+  <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80" alt="">
+  <div class="overlay"></div>
+  <div class="hero-content"><h1>{{ resource.title }}</h1></div>
+</div>
+
+<div class="container detail-wrap">
+  <a href="javascript:history.back()" class="back-link">← 返回</a>
+
+  <div class="detail-card">
+    <div class="detail-meta">
+      <span class="cat-tag cat-{{ resource.category }}">{{ resource.category|cat_name }}</span>
+      {% if resource.source %}<span class="meta-source">{{ resource.source }}</span>{% endif %}
+      {% if resource.get('platformName') %}<span class="meta-source">{{ resource.platformName }}</span>{% endif %}
+      {% if resource.publishTime %}<span class="meta-time">📅 {{ resource.publishTime }}</span>{% endif %}
+    </div>
+
+    {% if resource.summary %}
+    <div class="detail-summary">
+      <div class="summary-head">📝 摘要</div>
+      <div class="summary-text">{{ resource.summary }}</div>
+    </div>
+    {% endif %}
+
+    {% if resource.content %}
+    <div class="detail-content">{{ resource.content|safe }}</div>
+    {% endif %}
+
+    {% if resource.tags %}
+    <div class="detail-tags">
+      {% for tag in resource.tags %}
+      <a href="/search?keyword={{ tag }}" class="tag">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if resource.sourceUrl %}
+    <div class="source-tip">数据来源于互联网公开信息</div>
+    {% endif %}
+  </div>
+
+  <div class="action-bar">
+    <button class="action-btn {{ 'collected' if is_collected }}" id="collectBtn" onclick="toggleCollect('{{ resource._id }}')">
+      <span class="emoji" id="collectEmoji">{{ '⭐' if is_collected else '☆' }}</span>
+      <span id="collectText">{{ '已收藏' if is_collected else '收藏' }}</span>
+    </button>
+    {% if resource.sourceUrl %}
+    <button class="action-btn" onclick="copyLink('{{ resource.sourceUrl }}')">
+      <span class="emoji">🔗</span> 查看原文
+    </button>
+    {% endif %}
+  </div>
+
+  {% if related %}
+  <div class="related">
+    <h3>💡 相关推荐</h3>
+    {% for r in related %}
+    <div class="related-item">
+      <a href="/detail/{{ r._id }}">
+        <div class="related-title">{{ r.title }}</div>
+        <div class="related-meta">
+          <span class="cat-tag cat-{{ r.category }}">{{ r.category|cat_name }}</span>
+          {% if r.publishTime %}<span>{{ r.publishTime }}</span>{% endif %}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+let collected={{ 'true' if is_collected else 'false' }};
+function toggleCollect(rid){fetch('/api/collect/toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({resourceId:rid})}).then(r=>r.json()).then(d=>{if(d.code===-1){showLogin();return}collected=d.data.isCollected;document.getElementById('collectEmoji').textContent=collected?'⭐':'☆';document.getElementById('collectText').textContent=collected?'已收藏':'收藏';document.getElementById('collectBtn').classList.toggle('collected',collected);showToast(d.message)})}
+function copyLink(url){navigator.clipboard.writeText(url).then(()=>showToast('链接已复制')).catch(()=>showToast('复制失败'))}
+</script>
+{% endblock %}

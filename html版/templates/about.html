@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% set active_tab = '' %}
+{% block title %}关于我们{% endblock %}
+{% block extra_style %}
+.about-hero{position:relative;height:240px;overflow:hidden}
+.about-hero img{width:100%;height:100%;object-fit:cover}
+.about-hero .overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(27,94,32,.85),rgba(46,125,50,.6));display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff}
+.about-hero .logo{font-size:64px;margin-bottom:12px}
+.about-hero .name{font-size:32px;font-weight:900;letter-spacing:4px;margin-bottom:6px}
+.about-hero .ver{font-size:14px;opacity:.7;margin-bottom:8px}
+.about-hero .desc{font-size:15px;opacity:.85;letter-spacing:2px}
+.about-wrap{max-width:740px;margin:0 auto}
+.about-section{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);padding:28px;margin-bottom:20px}
+.about-section h3{font-size:17px;color:var(--gd);margin-bottom:18px;display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:1px}
+.feature-list{list-style:none}
+.feature-list li{padding:12px 0;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--tl);line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'✅';font-size:16px}
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.value-item{text-align:center;padding:20px 16px;background:var(--bg);border-radius:var(--rs);transition:all .25s}
+.value-item:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.value-item .emoji{font-size:40px;display:block;margin-bottom:10px}
+.value-item .title{font-size:15px;font-weight:700;color:var(--gd);margin-bottom:6px;letter-spacing:1px}
+.value-item .desc{font-size:12px;color:var(--tl);line-height:1.6}
+.copyright{text-align:center;padding:28px;font-size:13px;color:var(--tlr);letter-spacing:1px}
+.copyright div{margin-bottom:4px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--gd);font-size:14px;margin-bottom:16px;font-weight:500}
+.back-link:hover{text-decoration:underline}
+@media(max-width:640px){.value-grid{grid-template-columns:1fr}}
+{% endblock %}
+
+{% block content %}
+<div class="about-hero">
+  <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&q=80" alt="">
+  <div class="overlay">
+    <div class="logo">🌾</div>
+    <div class="name">农智汇</div>
+    <div class="ver">版本 1.0.0</div>
+    <div class="desc">开源涉农知识聚合平台</div>
+  </div>
+</div>
+
+<div class="container about-wrap">
+  <a href="/my" class="back-link">← 返回</a>
+
+  <div class="about-section">
+    <h3>🎯 核心功能</h3>
+    <ul class="feature-list">
+      <li>智能检索涉农法律、政策、技术资源</li>
+      <li>整合多平台涉农知识资源</li>
+      <li>基于用户需求的智能推荐</li>
+      <li>多端适配便捷访问</li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h3>🌍 社会价值</h3>
+    <div class="value-grid">
+      <div class="value-item">
+        <span class="emoji">🌱</span>
+        <div class="title">助力农技普及</div>
+        <div class="desc">降低农民获取优质农技知识的成本</div>
+      </div>
+      <div class="value-item">
+        <span class="emoji">📚</span>
+        <div class="title">保护乡村文化</div>
+        <div class="desc">推动农耕文化、乡土文化的传承与传播</div>
+      </div>
+      <div class="value-item">
+        <span class="emoji">👨‍🌾</span>
+        <div class="title">提升农民素养</div>
+        <div class="desc">为乡村振兴培育高素质的新型农民</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright">
+    <div>© 2026 农智汇</div>
+    <div>助力乡村振兴 · 服务三农发展</div>
+  </div>
+</div>
+{% endblock %}

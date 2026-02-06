@@ -1,0 +1,87 @@
+/* 全局样式 - Modern Rural-Fresh UI */
+page {
+  background: #F5F5F0;
+  font-family: 'FZXiaoBiaoSong-B05S', serif;
+  color: #2E7D32;
+}
+
+view, text, button, input {
+  font-family: 'FZXiaoBiaoSong-B05S', serif;
+}
+
+/* Vant组件字体覆盖 */
+.van-cell, .van-cell__title, .van-cell__label, .van-cell__value,
+.van-tag, .van-search__content, .van-field__control,
+.van-grid-item__text, .van-button {
+  font-family: 'FZXiaoBiaoSong-B05S', serif !important;
+}
+
+/* 背景图片容器 */
+.bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-image {
+  width: 100%;
+  height: 100%;
+  opacity: 0.12;
+  object-fit: cover;
+}
+
+.container {
+  padding: 0 0 40rpx 0;
+  position: relative;
+  z-index: 1;
+}
+
+.primary-color {
+  color: #2E7D32;
+}
+
+.bg-primary {
+  background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);
+}
+
+.card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin: 0 32rpx 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(46, 125, 50, 0.08);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2E7D32 0%, #43A047 100%);
+  color: white;
+  border-radius: 48rpx;
+  padding: 28rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(46, 125, 50, 0.2);
+  transition: all 0.3s;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #FFB74D 0%, #FFA726 100%);
+  color: white;
+  border-radius: 48rpx;
+  padding: 28rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(255, 183, 77, 0.2);
+  transition: all 0.3s;
+}
+
+.tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+  color: #2E7D32;
+  padding: 8rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}

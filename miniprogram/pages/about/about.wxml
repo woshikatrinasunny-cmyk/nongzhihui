@@ -1,0 +1,73 @@
+<view class="about-container">
+  <!-- Logo 和应用信息 -->
+  <view class="app-info">
+    <view class="app-logo">🌾</view>
+    <view class="app-name">{{appInfo.name}}</view>
+    <view class="app-version">版本 {{appInfo.version}}</view>
+    <view class="app-desc">{{appInfo.description}}</view>
+  </view>
+
+  <!-- 核心功能 -->
+  <view class="section">
+    <view class="section-title">核心功能</view>
+    <van-cell-group>
+      <van-cell wx:for="{{appInfo.features}}" wx:key="index" title="{{item}}" icon="success" />
+    </van-cell-group>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="section">
+    <view class="section-title">联系我们</view>
+    <van-cell-group>
+      <van-cell 
+        title="客服邮箱" 
+        value="{{contact.email}}" 
+        is-link 
+        data-text="{{contact.email}}"
+        bindtap="copyContact" 
+      />
+      <van-cell 
+        title="客服电话" 
+        value="{{contact.phone}}" 
+        is-link 
+        data-text="{{contact.phone}}"
+        bindtap="copyContact" 
+      />
+      <van-cell 
+        title="官方微信" 
+        value="{{contact.wechat}}" 
+        is-link 
+        data-text="{{contact.wechat}}"
+        bindtap="copyContact" 
+      />
+    </van-cell-group>
+  </view>
+
+  <!-- 社会价值 -->
+  <view class="section">
+    <view class="section-title">社会价值</view>
+    <view class="value-card">
+      <view class="value-item">
+        <view class="value-emoji">🌱</view>
+        <view class="value-title">助力农技普及</view>
+        <view class="value-desc">降低农民获取优质农技知识的成本</view>
+      </view>
+      <view class="value-item">
+        <view class="value-emoji">📚</view>
+        <view class="value-title">保护乡村文化</view>
+        <view class="value-desc">推动农耕文化、乡土文化的传承与传播</view>
+      </view>
+      <view class="value-item">
+        <view class="value-emoji">👨‍🌾</view>
+        <view class="value-title">提升农民素养</view>
+        <view class="value-desc">为乡村振兴培育高素质的新型农民</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 版权信息 -->
+  <view class="copyright">
+    <text>© 2026 农智汇</text>
+    <text>助力乡村振兴 · 服务三农发展</text>
+  </view>
+</view>

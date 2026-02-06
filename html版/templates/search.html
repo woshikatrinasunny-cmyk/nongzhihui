@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% set active_tab = 'search' %}
+{% block title %}搜索{% endblock %}
+{% block extra_style %}
+.search-hero{background:linear-gradient(160deg,#1B5E20,#2E7D32 40%,#388E3C);padding:36px 24px 40px;position:relative;overflow:hidden}
+.search-hero::before{content:'';position:absolute;top:-40%;right:-10%;width:400px;height:400px;background:rgba(255,255,255,.04);border-radius:50%}
+.search-form{max-width:700px;margin:0 auto;display:flex;gap:12px}
+.search-form input{flex:1;padding:15px 22px;border:none;border-radius:28px;font-size:16px;outline:none;font-family:'Noto Serif SC',serif;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.search-form input::placeholder{color:#aaa}
+.search-form button{background:var(--w);color:var(--gd);border:none;border-radius:28px;padding:0 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:1px;transition:all .25s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.search-form button:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.hot-section{margin-bottom:32px}
+.hot-section h3{display:flex;align-items:center;gap:8px;font-size:17px;color:var(--gd);margin-bottom:16px;font-weight:700;letter-spacing:1px}
+.hot-list{display:flex;flex-direction:column;gap:8px}
+.hot-item{display:flex;align-items:center;gap:14px;padding:12px 18px;background:var(--w);border-radius:var(--rs);cursor:pointer;transition:all .25s;box-shadow:var(--sh)}
+.hot-item:hover{background:var(--gbg);transform:translateX(4px);box-shadow:var(--shl)}
+.hot-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:#f0f0f0;color:var(--tl);flex-shrink:0}
+.hot-rank.top{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff}
+.tag-list{display:flex;flex-wrap:wrap;gap:10px}
+.tag-chip{padding:8px 18px;background:var(--w);border-radius:24px;font-size:13px;color:var(--tl);cursor:pointer;box-shadow:var(--sh);transition:all .25s;font-weight:500}
+.tag-chip:hover{background:var(--gbg);color:var(--gd);transform:translateY(-2px)}
+.results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.results-count{font-size:14px;color:var(--tl);font-weight:500}
+.results-tip{font-size:12px;color:var(--tlr)}
+.result-card{display:flex;background:var(--w);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:all .3s;cursor:pointer;margin-bottom:14px}
+.result-card:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.result-accent{width:4px;flex-shrink:0}
+.result-accent.law{background:linear-gradient(180deg,#1B5E20,#43A047)}.result-accent.policy{background:linear-gradient(180deg,#E65100,#FF8F00)}.result-accent.tech{background:linear-gradient(180deg,#33691E,#66BB6A)}.result-accent.culture{background:linear-gradient(180deg,#F57F17,#FFF59D)}
+.result-body{padding:18px 22px;flex:1;min-width:0}
+.result-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.result-title{font-size:17px;font-weight:700;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:.5px;line-height:1.5}
+.result-summary{font-size:13px;color:var(--tl);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;line-height:1.7}
+.result-bottom{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--tlr)}
+.result-tags{display:flex;gap:6px}
+.result-tag{background:var(--gbg);color:var(--gd);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:500}
+.filter-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:8px 20px;border-radius:24px;border:1.5px solid #e0e0e0;background:var(--w);font-size:13px;cursor:pointer;transition:all .25s;font-family:'Noto Serif SC',serif;letter-spacing:.5px;font-weight:500}
+.filter-btn.active,.filter-btn:hover{border-color:var(--gd);color:var(--gd);background:var(--gbg)}
+{% endblock %}
+
+{% block content %}
+<div class="search-hero">
+  <form class="search-form" id="searchForm">
+    <input type="text" id="searchInput" placeholder="搜索涉农法律、政策、技术..." autocomplete="off" value="{{ request.args.get('keyword','') }}">
+    <button type="submit">搜索</button>
+  </form>
+</div>
+
+<div class="container">
+  <div id="preSearch">
+    <div class="hot-section" id="historySection" style="display:none">
+      <h3>🕒 搜索历史 <span style="margin-left:auto;font-size:12px;color:var(--tlr);cursor:pointer;font-weight:400" onclick="clearHistory()">清空</span></h3>
+      <div class="tag-list" id="historyTags"></div>
+    </div>
+    <div class="hot-section">
+      <h3>🔥 热门搜索</h3>
+      <div class="hot-list">
+        {% for kw in hot_keywords %}
+        <div class="hot-item" onclick="doSearch('{{ kw }}')">
+          <span class="hot-rank {{ 'top' if loop.index0 < 3 }}">{{ loop.index }}</span>
+          <span>{{ kw }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div id="resultsArea" style="display:none">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter(this,'')">全部</button>
+      <button class="filter-btn" onclick="setFilter(this,'law')">⚖️ 法律</button>
+      <button class="filter-btn" onclick="setFilter(this,'policy')">📋 政策</button>
+      <button class="filter-btn" onclick="setFilter(this,'tech')">🌾 技术</button>
+      <button class="filter-btn" onclick="setFilter(this,'culture')">📖 文化</button>
+    </div>
+    <div class="results-header">
+      <span class="results-count" id="resultsCount"></span>
+      <span class="results-tip">数据来自互联网实时搜索</span>
+    </div>
+    <div id="resultsList"></div>
+  </div>
+
+  <div id="emptyState" class="empty" style="display:none">
+    <span class="emoji">🔍</span>
+    <div class="text">未找到相关结果</div>
+    <div class="sub">换个关键词试试</div>
+  </div>
+
+  <div id="loadingState" style="display:none;text-align:center;padding:60px">
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+    <p style="color:var(--tl);font-size:14px;margin-top:8px">正在搜索全网资源...</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+const catNameMap={law:'法律法规',policy:'政策文件',tech:'农技手册',culture:'乡土文献'};
+let currentCat='';
+function getHistory(){return JSON.parse(localStorage.getItem('searchHistory')||'[]')}
+function saveHistory(kw){let h=getHistory().filter(x=>x!==kw);h.unshift(kw);localStorage.setItem('searchHistory',JSON.stringify(h.slice(0,10)));renderHistory()}
+function clearHistory(){localStorage.removeItem('searchHistory');renderHistory()}
+function renderHistory(){const h=getHistory(),sec=document.getElementById('historySection'),tags=document.getElementById('historyTags');if(!h.length){sec.style.display='none';return}sec.style.display='block';tags.innerHTML='';h.forEach(kw=>{const d=document.createElement('div');d.className='tag-chip';d.textContent=kw;d.onclick=()=>doSearch(kw);tags.appendChild(d)})}
+function doSearch(kw){document.getElementById('searchInput').value=kw;performSearch(kw)}
+function setFilter(el,cat){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');currentCat=cat;const kw=document.getElementById('searchInput').value.trim();if(kw)performSearch(kw)}
+function performSearch(kw){if(!kw)return;saveHistory(kw);document.getElementById('preSearch').style.display='none';document.getElementById('resultsArea').style.display='none';document.getElementById('emptyState').style.display='none';document.getElementById('loadingState').style.display='block';const params=new URLSearchParams({keyword:kw});if(currentCat)params.set('category',currentCat);fetch('/api/search?'+params).then(r=>r.json()).then(d=>{document.getElementById('loadingState').style.display='none';const list=d.data.list||[];if(!list.length){document.getElementById('emptyState').style.display='block';document.getElementById('resultsArea').style.display='block';document.getElementById('resultsCount').textContent='找到 0 条结果';document.getElementById('resultsList').innerHTML='';return}document.getElementById('resultsArea').style.display='block';document.getElementById('resultsCount').textContent='找到 '+d.data.total+' 条相关结果';const c=document.getElementById('resultsList');c.innerHTML='';list.forEach(item=>{const tags=(item.tags||[]).slice(0,2).map(t=>'<span class="result-tag">'+t+'</span>').join('');c.innerHTML+='<a href="/detail/'+item._id+'" class="result-card"><div class="result-accent '+(item.category||'')+'"></div><div class="result-body"><div class="result-top"><span class="cat-tag cat-'+(item.category||'')+'">'+(catNameMap[item.category]||item.category||'')+'</span>'+(item.source?'<span style="font-size:12px;color:var(--tlr)">'+item.source+'</span>':'')+'</div><div class="result-title">'+item.title+'</div>'+(item.summary?'<div class="result-summary">'+item.summary+'</div>':'')+'<div class="result-bottom"><div class="result-tags">'+tags+'</div>'+(item.publishTime?'<span>'+item.publishTime+'</span>':'')+'</div></div></a>'})})}
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const kw=document.getElementById('searchInput').value.trim();if(kw)performSearch(kw);else showToast('请输入搜索关键词')});
+renderHistory();
+const urlKw=new URLSearchParams(location.search).get('keyword');if(urlKw){document.getElementById('searchInput').value=urlKw;performSearch(urlKw)}
+</script>
+{% endblock %}

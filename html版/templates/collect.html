@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% set active_tab = 'my' %}
+{% block title %}我的收藏{% endblock %}
+{% block extra_style %}
+.page-head{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.page-head a{color:var(--gd);font-size:14px;font-weight:500}
+.page-head h2{font-size:20px;color:var(--gd);font-weight:700;letter-spacing:1px}
+.collect-item{display:flex;background:var(--w);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:14px;transition:all .3s}
+.collect-item:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.collect-item .thumb{width:120px;flex-shrink:0;overflow:hidden}
+.collect-item .thumb img{width:100%;height:100%;object-fit:cover;min-height:100px;transition:transform .5s}
+.collect-item:hover .thumb img{transform:scale(1.08)}
+.collect-item .info{padding:16px 20px;flex:1;min-width:0}
+.collect-title{font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.collect-summary{font-size:13px;color:var(--tl);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;line-height:1.7}
+.collect-meta{display:flex;gap:8px;font-size:12px;color:var(--tlr)}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:860px">
+  <div class="page-head"><a href="/my">← 返回</a><h2>⭐ 我的收藏</h2></div>
+  {% set imgs = ['1500382017468-9049fed747ef','1625246333195-78d9c38ad449','1530836369250-ef72a3f5cda8','1574943320219-553eb213f72d'] %}
+  {% if items %}
+    {% for item in items %}
+    <a href="/detail/{{ item._id }}" class="collect-item">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-{{ imgs[loop.index0 % 4] }}?w=240&q=60" alt=""></div>
+      <div class="info">
+        <div class="collect-title">{{ item.title }}</div>
+        <div class="collect-summary">{{ item.summary or '暂无简介' }}</div>
+        <div class="collect-meta">
+          <span class="cat-tag cat-{{ item.category }}">{{ item.category|cat_name }}</span>
+          <span>收藏于 {{ item.collectTime }}</span>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  {% else %}
+    <div class="empty"><span class="emoji">⭐</span><div class="text">暂无收藏内容</div><div class="sub">快去收藏感兴趣的资源吧~</div></div>
+  {% endif %}
+</div>
+{% endblock %}

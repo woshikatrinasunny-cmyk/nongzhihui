@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <view class="user-info" wx:if="{{hasLogin}}">
+      <view class="avatar">👤</view>
+      <view class="user-detail">
+        <text class="nickname">{{userInfo.nickName}}</text>
+        <text class="user-id">ID: {{userInfo.openid.slice(0, 12)}}...</text>
+      </view>
+      <button class="logout-btn" bindtap="logout">退出</button>
+    </view>
+    <view class="user-info" wx:else bindtap="getUserProfile">
+      <view class="avatar">👤</view>
+      <view class="user-detail">
+        <text class="nickname">点击登录</text>
+        <text class="user-id">登录后享受更多服务</text>
+      </view>
+      <text class="login-arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-list">
+    <view class="menu-item"
+          wx:for="{{menuItems}}"
+          wx:key="id"
+          bindtap="navigateTo"
+          data-url="{{item.url}}">
+      <text class="menu-icon">{{item.emoji}}</text>
+      <text class="menu-name">{{item.name}}</text>
+      <text class="arrow-icon">›</text>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text>农智汇 v1.0.0</text>
+  </view>
+</view>

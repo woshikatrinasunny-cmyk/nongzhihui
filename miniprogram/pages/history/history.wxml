@@ -1,0 +1,26 @@
+<view class="container">
+  <!-- 清空按钮 -->
+  <view class="clear-btn" wx:if="{{historyList.length > 0}}" bindtap="clearHistory">
+    <text>清空历史</text>
+  </view>
+
+  <view class="result-list" wx:if="{{historyList.length > 0}}">
+    <view class="result-item" 
+          wx:for="{{historyList}}" 
+          wx:key="_id" 
+          bindtap="viewDetail" 
+          data-id="{{item._id}}">
+      <view class="result-title">{{item.title}}</view>
+      <view class="result-summary">{{item.summary}}</view>
+      <view class="result-meta">
+        <text class="result-tag">{{item.category}}</text>
+        <text class="result-time">{{item.viewTime}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty-state" wx:else>
+    <text class="empty-emoji">🕒</text>
+    <text>暂无浏览记录</text>
+  </view>
+</view>

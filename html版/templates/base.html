@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}农智汇{% endblock %} - 涉农知识聚合平台</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --gd:#2E7D32;--g:#43A047;--gl:#66BB6A;--glr:#81C784;--gbg:#E8F5E9;
+      --or:#FF8F00;--ord:#F57C00;--yl:#FFF59D;
+      --bg:#FAFAF5;--w:#fff;--t:#1a1a1a;--tl:#555;--tlr:#999;
+      --sh:0 2px 16px rgba(46,125,50,.08);--shl:0 8px 40px rgba(46,125,50,.14);
+      --r:14px;--rs:10px;
+    }
+    body{font-family:'Noto Serif SC',serif;background:var(--bg);color:var(--t);min-height:100vh;padding-left:160px;line-height:1.7}
+    a{color:inherit;text-decoration:none}
+    ::selection{background:var(--gbg);color:var(--gd)}
+
+    /* 侧边导航 */
+    .side-nav{position:fixed;left:0;top:0;bottom:0;width:160px;background:var(--w);border-right:1px solid rgba(46,125,50,.08);display:flex;flex-direction:column;align-items:center;z-index:100;box-shadow:2px 0 20px rgba(0,0,0,.03);padding-top:80px}
+    .side-nav .nav-logo{position:absolute;top:0;left:0;right:0;height:80px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(160deg,#1B5E20,#2E7D32,#43A047);color:#fff;gap:8px;font-weight:700;font-family:'Noto Serif SC',serif;letter-spacing:2px}
+    .side-nav .nav-logo .logo-text{font-size:17px}
+    .nav-item{display:flex;flex-direction:column;align-items:center;padding:20px 0;width:100%;font-size:13px;color:var(--tlr);transition:all .25s;cursor:pointer;text-decoration:none;position:relative;font-family:'Noto Serif SC',serif;letter-spacing:1px}
+    .nav-item .nav-emoji{font-size:24px;margin-bottom:6px;transition:transform .25s}
+    .nav-item.active,.nav-item:hover{color:var(--gd);background:linear-gradient(90deg,var(--gbg),transparent)}
+    .nav-item.active::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:3px;background:linear-gradient(180deg,var(--gd),var(--gl));border-radius:0 3px 3px 0}
+    .nav-item.active .nav-emoji{transform:scale(1.15)}
+    @media(max-width:768px){body{padding-left:0;padding-bottom:68px}.side-nav{top:auto;bottom:0;left:0;right:0;width:100%;height:68px;flex-direction:row;padding-top:0;border-right:none;border-top:1px solid #eee;box-shadow:0 -4px 20px rgba(0,0,0,.06)}.side-nav .nav-logo{display:none}.nav-item{padding:10px 0;flex:1;font-size:11px}.nav-item .nav-emoji{font-size:20px;margin-bottom:3px}.nav-item.active::before{left:25%;right:25%;top:0;bottom:auto;width:auto;height:3px;border-radius:0 0 3px 3px}}
+
+    /* 顶部导航 */
+    .navbar{background:linear-gradient(160deg,#1B5E20,#2E7D32 40%,#388E3C);color:#fff;padding:0 32px;height:64px;display:flex;align-items:center;position:sticky;top:0;z-index:90;box-shadow:0 2px 20px rgba(27,94,32,.2);backdrop-filter:blur(10px)}
+    .navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;width:100%}
+    .navbar-brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;letter-spacing:2px}
+    .navbar-brand .emoji{font-size:26px}
+    .navbar-sub{font-size:12px;opacity:.7;font-weight:400;margin-left:8px;letter-spacing:1px}
+    .navbar-user{display:flex;align-items:center;gap:14px;font-size:14px}
+    .navbar-user a{color:#fff;opacity:.85;transition:opacity .2s}
+    .navbar-user a:hover{opacity:1}
+
+    /* 按钮 */
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:24px;border:none;cursor:pointer;font-size:13px;transition:all .25s;font-family:'Noto Serif SC',serif;letter-spacing:1px}
+    .btn-white{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px)}
+    .btn-white:hover{background:rgba(255,255,255,.3)}
+    .btn-green{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 4px 12px rgba(46,125,50,.3)}
+    .btn-green:hover{box-shadow:0 6px 20px rgba(46,125,50,.4);transform:translateY(-1px)}
+    .btn-outline{background:transparent;color:var(--gd);border:1.5px solid var(--gd)}
+    .btn-outline:hover{background:var(--gbg)}
+
+    .container{max-width:1200px;margin:0 auto;padding:28px 32px}
+
+    /* 卡片 */
+    .card{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:transform .3s,box-shadow .3s}
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+
+    /* 空状态 */
+    .empty{text-align:center;padding:80px 20px;color:var(--tl)}
+    .empty .emoji{font-size:56px;display:block;margin-bottom:16px;opacity:.6}
+    .empty .text{font-size:17px;font-weight:500}
+    .empty .sub{font-size:13px;color:var(--tlr);margin-top:8px}
+
+    /* toast */
+    .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;padding:12px 28px;border-radius:24px;font-size:14px;z-index:999;opacity:0;transition:all .3s;pointer-events:none;box-shadow:0 8px 24px rgba(46,125,50,.3);font-family:'Noto Serif SC',serif}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* 加载 */
+    .loading-dots{display:flex;gap:8px;justify-content:center;padding:40px}
+    .loading-dots span{width:10px;height:10px;border-radius:50%;background:var(--gl);animation:bounce .6s infinite alternate}
+    .loading-dots span:nth-child(2){animation-delay:.2s}
+    .loading-dots span:nth-child(3){animation-delay:.4s}
+    @keyframes bounce{to{opacity:.3;transform:translateY(-10px)}}
+
+    /* 分类标签 */
+    .cat-law{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);color:#1B5E20}
+    .cat-policy{background:linear-gradient(135deg,#FFF3E0,#FFE0B2);color:#E65100}
+    .cat-tech{background:linear-gradient(135deg,#E8F5E9,#DCEDC8);color:#33691E}
+    .cat-culture{background:linear-gradient(135deg,#FFFDE7,#FFF9C4);color:#F57F17}
+    .cat-tag{display:inline-block;padding:3px 12px;border-radius:12px;font-size:12px;font-weight:600;letter-spacing:.5px}
+
+    /* 图片占位 */
+    .img-cover{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .img-cover:hover{transform:scale(1.05)}
+
+    {% block extra_style %}{% endblock %}
+  </style>
+</head>
+<body>
+  <nav class="side-nav">
+    <div class="nav-logo">🌾 <span class="logo-text">农智汇</span></div>
+    <a href="/" class="nav-item {{ 'active' if active_tab=='index' }}">
+      <span class="nav-emoji">🏠</span> 首页
+    </a>
+    <a href="/category" class="nav-item {{ 'active' if active_tab=='category' }}">
+      <span class="nav-emoji">📋</span> 分类
+    </a>
+    <a href="/search" class="nav-item {{ 'active' if active_tab=='search' }}">
+      <span class="nav-emoji">🔍</span> 搜索
+    </a>
+    <a href="/my" class="nav-item {{ 'active' if active_tab=='my' }}">
+      <span class="nav-emoji">👤</span> 我的
+    </a>
+  </nav>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-brand">
+        <span class="emoji">🌾</span> 农智汇
+        <span class="navbar-sub">涉农知识聚合平台</span>
+      </a>
+      <div class="navbar-user">
+        {% if current_user %}
+          <span style="opacity:.85">👤 {{ current_nickname }}</span>
+          <button class="btn btn-white" onclick="doLogout()">退出</button>
+        {% else %}
+          <button class="btn btn-white" onclick="showLogin()">登录</button>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+
+  {% block content %}{% endblock %}
+
+  <!-- 登录弹窗 -->
+  <div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+    <div style="background:#fff;border-radius:20px;padding:40px;width:380px;max-width:90vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)">
+      <div style="font-size:48px;margin-bottom:16px">🌾</div>
+      <h3 style="margin-bottom:6px;color:var(--gd);font-size:22px;font-family:'Noto Serif SC',serif;letter-spacing:2px">登录农智汇</h3>
+      <p style="font-size:13px;color:var(--tlr);margin-bottom:24px">助力乡村振兴 · 服务三农发展</p>
+      <input id="loginNickname" type="text" placeholder="请输入昵称" style="width:100%;padding:14px 18px;border:2px solid #e0e0e0;border-radius:12px;font-size:15px;outline:none;transition:border .2s;font-family:'Noto Serif SC',serif" onfocus="this.style.borderColor='var(--gd)'" onblur="this.style.borderColor='#e0e0e0'">
+      <div style="display:flex;gap:12px;margin-top:24px">
+        <button class="btn btn-outline" style="flex:1;padding:12px;font-size:15px" onclick="hideLogin()">取消</button>
+        <button class="btn btn-green" style="flex:1;padding:12px;font-size:15px" onclick="doLogin()">登录</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showToast(msg,duration=2000){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),duration)}
+    function showLogin(){document.getElementById('loginModal').style.display='flex'}
+    function hideLogin(){document.getElementById('loginModal').style.display='none'}
+    function doLogin(){const n=document.getElementById('loginNickname').value.trim();if(!n){showToast('请输入昵称');return}fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nickname:n})}).then(r=>r.json()).then(d=>{if(d.code===0){hideLogin();location.reload()}else{showToast(d.message)}})}
+    function doLogout(){if(!confirm('确定退出登录？'))return;fetch('/api/logout',{method:'POST'}).then(()=>location.reload())}
+    document.getElementById('loginNickname')?.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+  </script>
+  {% block extra_script %}{% endblock %}
+</body>
+</html>

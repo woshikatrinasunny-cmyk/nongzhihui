@@ -1,0 +1,122 @@
+<view class="container">
+  <!-- 背景图片 -->
+  <view class="bg-wrapper">
+    <image class="bg-image" src="/images/背景.png" mode="aspectFill"></image>
+  </view>
+
+  <!-- 顶部导航栏 -->
+  <view class="top-bar">
+    <view class="top-bar-content">
+      <text class="app-title">农智汇</text>
+      <text class="app-subtitle">涉农知识聚合平台</text>
+    </view>
+  </view>
+
+  <!-- 搜索区域 -->
+  <view class="search-wrapper">
+    <van-search 
+      placeholder="搜索涉农法律、政策、技术..." 
+      shape="round"
+      background="transparent"
+      bind:click-input="goToSearch"
+      custom-style="background: rgba(255,255,255,0.25); border-radius: 48rpx;"
+    />
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content-wrapper">
+    <!-- 轮播图 -->
+    <view class="banner-wrapper">
+      <swiper 
+        class="banner-swipe" 
+        indicator-dots
+        indicator-color="rgba(255, 255, 255, 0.4)"
+        indicator-active-color="#fff"
+        autoplay
+        circular>
+        <swiper-item wx:for="{{banners}}" wx:key="id">
+          <view class="banner-item" style="background: linear-gradient(135deg, {{item.color1}} 0%, {{item.color2}} 100%);">
+            <view class="banner-content">
+              <text class="banner-title">{{item.title}}</text>
+              <text class="banner-desc">{{item.desc}}</text>
+            </view>
+            <text class="banner-emoji">{{item.emoji}}</text>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- 快捷入口 -->
+    <view class="grid-wrapper">
+      <van-grid column-num="4" border="{{false}}" gutter="24">
+        <van-grid-item 
+          wx:for="{{quickEntries}}" 
+          wx:key="id"
+          bind:click="navigateTo"
+          data-istab="{{item.isTab}}"
+          data-category="{{item.category}}">
+          <view slot="icon" class="grid-icon" style="background: linear-gradient(135deg, {{item.color1}} 0%, {{item.color2}} 100%);">
+            <text class="grid-emoji">{{item.emoji}}</text>
+          </view>
+          <view slot="text" class="grid-text">{{item.name}}</view>
+        </van-grid-item>
+      </van-grid>
+    </view>
+
+    <!-- 热门资源 -->
+    <view class="section">
+      <view class="section-title-wrapper">
+        <text class="section-icon">🔥</text>
+        <text class="section-title">热门资源</text>
+      </view>
+      <view class="resource-cards">
+        <view class="res-card" 
+              wx:for="{{hotResources}}" 
+              wx:key="_id"
+              bindtap="viewDetail"
+              data-id="{{item._id}}">
+          <view class="res-card-icon">🔥</view>
+          <view class="res-card-content">
+            <view class="res-card-title">{{item.title}}</view>
+            <view class="res-card-meta">
+              <text class="res-card-tag">{{item.category}}</text>
+              <text class="res-card-source" wx:if="{{item.source}}">{{item.source}}</text>
+            </view>
+          </view>
+          <text class="res-card-arrow">›</text>
+        </view>
+        <view class="res-empty" wx:if="{{hotResources.length === 0 && !loading}}">
+          <text>加载中...</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 最新政策 -->
+    <view class="section">
+      <view class="section-title-wrapper">
+        <text class="section-icon">📋</text>
+        <text class="section-title">最新政策</text>
+      </view>
+      <view class="resource-cards">
+        <view class="res-card" 
+              wx:for="{{latestPolicies}}" 
+              wx:key="_id"
+              bindtap="viewDetail"
+              data-id="{{item._id}}">
+          <view class="res-card-icon">📋</view>
+          <view class="res-card-content">
+            <view class="res-card-title">{{item.title}}</view>
+            <view class="res-card-meta">
+              <text class="res-card-tag">{{item.category}}</text>
+              <text class="res-card-source" wx:if="{{item.source}}">{{item.source}}</text>
+            </view>
+          </view>
+          <text class="res-card-arrow">›</text>
+        </view>
+        <view class="res-empty" wx:if="{{latestPolicies.length === 0 && !loading}}">
+          <text>加载中...</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

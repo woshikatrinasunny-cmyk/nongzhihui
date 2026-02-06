@@ -1,0 +1,69 @@
+<view class="container">
+  <!-- 顶部分类导航 -->
+  <view class="category-nav">
+    <view class="category-grid">
+      <view class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+            wx:for="{{categories}}"
+            wx:key="id"
+            bindtap="selectCategory"
+            data-category="{{item.id}}">
+        <view class="category-icon" style="background: {{item.color}};">
+          <text class="category-emoji">{{item.emoji}}</text>
+        </view>
+        <text class="category-name">{{item.name}}</text>
+        <view class="category-dot" wx:if="{{currentCategory === item.id}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 资源列表 -->
+  <view class="resource-list" wx:if="{{resourceList.length > 0}}">
+    <view class="resource-card"
+          wx:for="{{resourceList}}"
+          wx:key="_id"
+          bindtap="viewDetail"
+          data-id="{{item._id}}">
+      <!-- 左侧分类色条 -->
+      <view class="card-accent card-accent-{{item.category}}"></view>
+      <view class="card-body">
+        <!-- 顶部：分类图标 + 来源 -->
+        <view class="card-top">
+          <view class="card-category card-cat-{{item.category}}">
+            <text class="card-cat-emoji">{{item.category === 'law' ? '⚖️' : item.category === 'policy' ? '📋' : item.category === 'tech' ? '🔬' : '📖'}}</text>
+            <text class="card-cat-text">{{item.category === 'law' ? '法律法规' : item.category === 'policy' ? '政策文件' : item.category === 'tech' ? '农技手册' : '乡土文献'}}</text>
+          </view>
+          <text class="card-source" wx:if="{{item.source}}">{{item.source}}</text>
+        </view>
+        <!-- 标题 -->
+        <view class="card-title">{{item.title}}</view>
+        <!-- 摘要 -->
+        <view class="card-summary" wx:if="{{item.summary}}">{{item.summary}}</view>
+        <!-- 底部：标签 + 时间 -->
+        <view class="card-bottom">
+          <view class="card-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+            <text class="card-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" wx:if="{{index < 3}}">{{tag}}</text>
+          </view>
+          <text class="card-time" wx:if="{{item.publishTime}}">{{item.publishTime}}</text>
+        </view>
+      </view>
+      <!-- 右侧装饰 -->
+      <view class="card-deco card-deco-{{item.category}}">
+        <text class="card-deco-emoji">{{item.category === 'law' ? '⚖️' : item.category === 'policy' ? '🏛️' : item.category === 'tech' ? '🌾' : '📜'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{!hasMore && resourceList.length > 0}}">
+    <view class="load-more-line"></view>
+    <text class="load-more-text">已加载全部</text>
+    <view class="load-more-line"></view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{resourceList.length === 0}}">
+    <text class="empty-emoji">📚</text>
+    <text class="empty-text">正在加载资源...</text>
+    <text class="empty-sub">数据来自互联网实时搜索</text>
+  </view>
+</view>

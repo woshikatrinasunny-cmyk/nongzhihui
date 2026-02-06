@@ -1,0 +1,27 @@
+<view class="container">
+  <!-- 加载中状态 -->
+  <view class="loading" wx:if="{{loading && favorites.length === 0}}">
+    加载中...
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="result-list" wx:elif="{{favorites.length > 0}}">
+    <view class="result-item" wx:for="{{favorites}}" wx:key="_id" bindtap="viewDetail" data-id="{{item._id}}">
+      <view class="result-title">{{item.title}}</view>
+      <view class="result-summary">{{item.summary || '暂无简介'}}</view>
+      <view class="result-meta">
+        <text class="result-tag">{{item.category || '未知分类'}}</text>
+        <text class="result-time">{{item.createAt ? item.createAt.slice(0,10) : '未知时间'}}</text>
+      </view>
+    </view>
+    <!-- 加载更多提示 -->
+    <view class="loading" wx:if="{{loading && hasMore}}">加载更多...</view>
+    <view class="loading" wx:if="{{!hasMore && favorites.length > 0}}">已加载全部</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-emoji">⭐</text>
+    <text>暂无收藏内容，快去收藏吧~</text>
+  </view>
+</view>

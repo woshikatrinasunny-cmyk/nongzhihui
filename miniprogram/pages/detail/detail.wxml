@@ -1,0 +1,86 @@
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{!resource}}">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:if="{{resource}}">
+    <view class="detail-card">
+      <!-- 标题 -->
+      <view class="detail-title">{{resource.title}}</view>
+      
+      <!-- 元信息 -->
+      <view class="detail-meta">
+        <text class="meta-tag">{{resource.category === 'law' ? '法律法规' : resource.category === 'policy' ? '政策文件' : resource.category === 'tech' ? '农技手册' : resource.category === 'culture' ? '乡土文献' : resource.category}}</text>
+        <text class="meta-source" wx:if="{{resource.source}}">{{resource.source}}</text>
+        <text class="meta-source" wx:if="{{resource.platformName}}">{{resource.platformName}}</text>
+        <text class="meta-time" wx:if="{{resource.publishTime}}">{{resource.publishTime}}</text>
+      </view>
+
+      <!-- 摘要 -->
+      <view class="detail-summary" wx:if="{{resource.summary}}">
+        <view class="summary-title">
+          <text class="summary-emoji">📝</text>
+          <text>摘要</text>
+        </view>
+        <view class="summary-content">{{resource.summary}}</view>
+      </view>
+
+      <!-- 正文 -->
+      <view class="detail-content" wx:if="{{resource.content}}">
+        <rich-text nodes="{{resource.content}}"></rich-text>
+      </view>
+
+      <!-- 标签 -->
+      <view class="detail-tags" wx:if="{{resource.tags && resource.tags.length > 0}}">
+        <text class="tag-item" 
+              wx:for="{{resource.tags}}" 
+              wx:key="index"
+              bindtap="searchTag"
+              data-tag="{{item}}">#{{item}}</text>
+      </view>
+
+      <!-- 来源提示 -->
+      <view class="source-tip" wx:if="{{resource.sourceUrl}}">
+        <text class="source-tip-text">数据来源于互联网公开信息</text>
+      </view>
+    </view>
+
+    <!-- 操作栏 -->
+    <view class="action-bar">
+      <view class="action-item" bindtap="toggleCollect">
+        <text class="action-emoji">{{isCollected ? '⭐' : '☆'}}</text>
+        <text>{{isCollected ? '已收藏' : '收藏'}}</text>
+      </view>
+      <view class="action-item" bindtap="shareResource">
+        <text class="action-emoji">📤</text>
+        <text>分享</text>
+      </view>
+      <view class="action-item" bindtap="viewSource">
+        <text class="action-emoji">🔗</text>
+        <text>查看原文</text>
+      </view>
+    </view>
+
+    <!-- 相关推荐 -->
+    <view class="related-section" wx:if="{{relatedResources.length > 0}}">
+      <view class="section-title">
+        <text class="title-emoji">💡</text>
+        <text>相关推荐</text>
+      </view>
+      <view class="related-list">
+        <view class="related-item" 
+              wx:for="{{relatedResources}}" 
+              wx:key="_id"
+              bindtap="viewRelated"
+              data-id="{{item._id}}">
+          <view class="related-title">{{item.title}}</view>
+          <view class="related-meta">
+            <text class="related-tag">{{item.category === 'law' ? '法律' : item.category === 'policy' ? '政策' : item.category === 'tech' ? '技术' : '文化'}}</text>
+            <text class="related-time" wx:if="{{item.publishTime}}">{{item.publishTime}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

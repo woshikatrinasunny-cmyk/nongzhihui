@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% set active_tab = 'my' %}
+{% block title %}意见反馈{% endblock %}
+{% block extra_style %}
+.page-head{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.page-head a{color:var(--gd);font-size:14px;font-weight:500}
+.page-head h2{font-size:20px;color:var(--gd);font-weight:700;letter-spacing:1px}
+.fb-card{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);padding:28px;margin-bottom:20px}
+.fb-label{font-size:16px;font-weight:700;color:var(--gd);margin-bottom:14px;letter-spacing:1px}
+.fb-textarea{width:100%;min-height:180px;padding:16px;border:2px solid #e8e8e8;border-radius:var(--rs);font-size:15px;resize:vertical;outline:none;font-family:'Noto Serif SC',serif;transition:border .25s;line-height:1.8}
+.fb-textarea:focus{border-color:var(--gd)}
+.fb-count{text-align:right;font-size:12px;color:var(--tlr);margin-top:8px}
+.fb-input{width:100%;padding:16px;border:2px solid #e8e8e8;border-radius:var(--rs);font-size:15px;outline:none;font-family:'Noto Serif SC',serif;transition:border .25s}
+.fb-input:focus{border-color:var(--gd)}
+.submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,#1B5E20,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rs);font-size:17px;font-weight:700;cursor:pointer;transition:all .25s;font-family:'Noto Serif SC',serif;letter-spacing:2px;box-shadow:0 4px 16px rgba(46,125,50,.3)}
+.submit-btn:hover{box-shadow:0 8px 24px rgba(46,125,50,.4);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:640px">
+  <div class="page-head"><a href="/my">← 返回</a><h2>💬 意见反馈</h2></div>
+  <div class="fb-card">
+    <div class="fb-label">问题与建议</div>
+    <textarea class="fb-textarea" id="fbContent" placeholder="请详细描述您遇到的问题或建议，我们将不断优化体验..." maxlength="500" oninput="updateCount()"></textarea>
+    <div class="fb-count"><span id="charCount">0</span>/500</div>
+  </div>
+  <div class="fb-card">
+    <div class="fb-label">联系方式 (选填)</div>
+    <input class="fb-input" id="fbContact" placeholder="手机号或邮箱，方便我们联系您">
+  </div>
+  <button class="submit-btn" id="submitBtn" onclick="submitFeedback()">提交反馈</button>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+function updateCount(){document.getElementById('charCount').textContent=document.getElementById('fbContent').value.length}
+function submitFeedback(){const content=document.getElementById('fbContent').value.trim();const contact=document.getElementById('fbContact').value.trim();if(!content){showToast('请输入反馈内容');return}const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='提交中...';fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content,contact})}).then(r=>r.json()).then(d=>{if(d.code===0){showToast('提交成功，感谢反馈');setTimeout(()=>history.back(),1500)}else{showToast(d.message);btn.disabled=false;btn.textContent='提交反馈'}}).catch(()=>{showToast('提交失败');btn.disabled=false;btn.textContent='提交反馈'})}
+</script>
+{% endblock %}

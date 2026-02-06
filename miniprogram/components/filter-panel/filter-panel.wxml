@@ -1,0 +1,69 @@
+<view class="filter-mask" wx:if="{{show}}" bindtap="onClose"></view>
+
+<view class="filter-panel" wx:if="{{show}}">
+  <view class="filter-header">
+    <text class="filter-title">筛选条件</text>
+    <text class="filter-close" bindtap="onClose">✕</text>
+  </view>
+
+  <view class="filter-content">
+    <!-- 分类筛选 -->
+    <view class="filter-item">
+      <view class="filter-label">资源分类</view>
+      <picker 
+        mode="selector" 
+        range="{{categories}}" 
+        range-key="label"
+        value="{{categoryIndex}}"
+        bindchange="onCategoryChange">
+        <view class="picker-value">
+          {{categories[categoryIndex].label}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 排序方式 -->
+    <view class="filter-item">
+      <view class="filter-label">排序方式</view>
+      <picker 
+        mode="selector" 
+        range="{{sortOptions}}" 
+        range-key="label"
+        value="{{sortIndex}}"
+        bindchange="onSortChange">
+        <view class="picker-value">
+          {{sortOptions[sortIndex].label}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 日期范围 -->
+    <view class="filter-item">
+      <view class="filter-label">发布时间</view>
+      <view class="date-range">
+        <picker 
+          mode="date" 
+          value="{{localFilters.startDate}}"
+          bindchange="onStartDateChange">
+          <view class="date-picker">
+            {{localFilters.startDate || '开始日期'}}
+          </view>
+        </picker>
+        <text class="date-separator">至</text>
+        <picker 
+          mode="date" 
+          value="{{localFilters.endDate}}"
+          bindchange="onEndDateChange">
+          <view class="date-picker">
+            {{localFilters.endDate || '结束日期'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <view class="filter-footer">
+    <button class="reset-btn" bindtap="onReset">重置</button>
+    <button class="confirm-btn" bindtap="onConfirm">确定</button>
+  </view>
+</view>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set active_tab = '' %}
+{% block title %}页面未找到{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="empty">
+    <span class="emoji">😕</span>
+    <div class="text">页面未找到</div>
+    <div class="sub" style="margin-top:16px"><a href="/" style="color:var(--gd)">返回首页</a></div>
+  </div>
+</div>
+{% endblock %}

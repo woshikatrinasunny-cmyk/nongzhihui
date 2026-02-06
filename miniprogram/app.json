@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/detail/detail",
+    "pages/category/category",
+    "pages/my/my",
+    "pages/collect/collect",
+    "pages/history/history",
+    "pages/statistics/statistics",
+    "pages/feedback/feedback",
+    "pages/about/about"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4CAF50",
+    "navigationBarTitleText": "农智汇",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#81C784",
+    "selectedColor": "#2E7D32",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "🏠 首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "📋 分类"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "👤 我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
