@@ -389,6 +389,7 @@ page {
 /* ===== 搜索模式切换 ===== */
 .mode-bar {
   display: flex;
+  align-items: center;
   gap: 16rpx;
   padding: 16rpx 24rpx;
   background: white;
@@ -413,4 +414,26 @@ page {
 
 .mode-item:active {
   transform: scale(0.95);
+}
+
+.mode-status {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-left: auto;
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+}
+
+.status-dot.offline {
+  background: #FF9800;
+}
+
+.status-text {
+  font-size: 20rpx;
+  color: #FF9800;
 }

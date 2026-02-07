@@ -67,15 +67,18 @@
   </view>
 
   <!-- 搜索模式切换 -->
-  <view class="mode-bar" wx:if="{{hasSearched || webSearchEnabled}}">
+  <view class="mode-bar">
     <view class="mode-item {{searchMode === 'web' ? 'active' : ''}}" 
-          bindtap="switchMode" data-mode="web"
-          wx:if="{{webSearchEnabled}}">
+          bindtap="switchMode" data-mode="web">
       <text>🌐 全网搜索</text>
     </view>
     <view class="mode-item {{searchMode === 'local' ? 'active' : ''}}" 
           bindtap="switchMode" data-mode="local">
       <text>📦 本地资源</text>
+    </view>
+    <view class="mode-status" wx:if="{{!apiAvailable && searchMode === 'web'}}">
+      <text class="status-dot offline"></text>
+      <text class="status-text">后端离线，将使用本地数据</text>
     </view>
   </view>
 
@@ -83,7 +86,7 @@
   <view class="results-section" wx:if="{{hasSearched && searchResults.length > 0}}">
     <view class="results-header">
       <text class="results-count">找到 {{totalCount}} 条相关结果</text>
-      <text class="results-tip">{{searchMode === 'web' ? '数据来自Google搜索' : '数据来自本地资源库'}}</text>
+      <text class="results-tip">{{searchMode === 'web' ? '数据来自百度+Bing聚合搜索' : '数据来自本地资源库'}}</text>
     </view>
     <!-- 排序栏 -->
     <view class="sort-bar">
