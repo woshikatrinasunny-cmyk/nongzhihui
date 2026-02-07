@@ -66,11 +66,24 @@
     </view>
   </view>
 
+  <!-- 搜索模式切换 -->
+  <view class="mode-bar" wx:if="{{hasSearched || webSearchEnabled}}">
+    <view class="mode-item {{searchMode === 'web' ? 'active' : ''}}" 
+          bindtap="switchMode" data-mode="web"
+          wx:if="{{webSearchEnabled}}">
+      <text>🌐 全网搜索</text>
+    </view>
+    <view class="mode-item {{searchMode === 'local' ? 'active' : ''}}" 
+          bindtap="switchMode" data-mode="local">
+      <text>📦 本地资源</text>
+    </view>
+  </view>
+
   <!-- 搜索结果 -->
   <view class="results-section" wx:if="{{hasSearched && searchResults.length > 0}}">
     <view class="results-header">
       <text class="results-count">找到 {{totalCount}} 条相关结果</text>
-      <text class="results-tip">数据来自互联网</text>
+      <text class="results-tip">{{searchMode === 'web' ? '数据来自Google搜索' : '数据来自本地资源库'}}</text>
     </view>
     <!-- 排序栏 -->
     <view class="sort-bar">

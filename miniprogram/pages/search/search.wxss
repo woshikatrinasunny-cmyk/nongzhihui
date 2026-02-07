@@ -385,3 +385,32 @@ page {
 .sort-item:active {
   transform: scale(0.95);
 }
+
+/* ===== 搜索模式切换 ===== */
+.mode-bar {
+  display: flex;
+  gap: 16rpx;
+  padding: 16rpx 24rpx;
+  background: white;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.mode-item {
+  padding: 12rpx 28rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  color: #888;
+  background: #f5f5f5;
+  transition: all 0.2s;
+}
+
+.mode-item.active {
+  background: linear-gradient(135deg, #43A047, #66BB6A);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2rpx 12rpx rgba(67, 160, 71, 0.3);
+}
+
+.mode-item:active {
+  transform: scale(0.95);
+}
