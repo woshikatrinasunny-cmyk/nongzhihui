@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const webSearch = require('../services/web-search');
 const recommendation = require('../services/recommendation');
+const contentFetcher = require('../services/content-fetcher');
 
 // 分类对应的搜索关键词
 const categoryKeywords = {
@@ -115,7 +116,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 获取资源详情
+// 独立的正文抓取接口
+router.get('/fetch-content', async (req, res) => {
+  try {
+    const { url } = req.query;
+    if (!url) {
+      return res.json({ code: -1, data: { content: '' } });
+    }
+    const { content, fullTitle } = await contentFetcher.fetch(url);
+    res.json({ code: 0, data: { content, fullTitle } });
+  } catch (error) {
+    console.error('[正文抓取API] 失败:', error.message);
+    res.json({ code: -1, data: { content: '' } });
+  }
+});
+
+// 获取资源详情（含正文抓取）
 router.get('/:id', async (req, res) => {
   try {
     const resourceId = req.params.id;
@@ -123,6 +139,24 @@ router.get('/:id', async (req, res) => {
     
     if (!resource) {
       return res.status(404).json({ code: -1, message: '资源不存在，请返回重试' });
+    }
+
+    // 如果还没有正文内容，尝试从原始 URL 抓取
+    if (!resource.content && resource.sourceUrl) {
+      try {
+        const { content, fullTitle } = await contentFetcher.fetch(resource.sourceUrl);
+        if (content) {
+          resource.content = content;
+          // 如果抓到了更好的标题，也更新
+          if (fullTitle && fullTitle.length > resource.title.length) {
+            resource.fullTitle = fullTitle;
+          }
+          // 更新缓存
+          resourceCache.set(String(resourceId), resource);
+        }
+      } catch (err) {
+        console.error('[详情] 正文抓取失败:', err.message);
+      }
     }
     
     res.json({ code: 0, data: resource });

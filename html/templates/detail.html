@@ -64,6 +64,13 @@
 
     {% if resource.content %}
     <div class="detail-content">{{ resource.content|safe }}</div>
+    {% else %}
+    <div class="detail-content" id="contentArea">
+      <div style="text-align:center;padding:30px;color:var(--tl)">
+        <div class="loading-dots" id="contentLoading"><span></span><span></span><span></span></div>
+        <p style="margin-top:8px;font-size:13px">正在加载全文...</p>
+      </div>
+    </div>
     {% endif %}
 
     {% if resource.tags %}
@@ -115,5 +122,25 @@
 let collected={{ 'true' if is_collected else 'false' }};
 function toggleCollect(rid){fetch('/api/collect/toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({resourceId:rid})}).then(r=>r.json()).then(d=>{if(d.code===-1){showLogin();return}collected=d.data.isCollected;document.getElementById('collectEmoji').textContent=collected?'⭐':'☆';document.getElementById('collectText').textContent=collected?'已收藏':'收藏';document.getElementById('collectBtn').classList.toggle('collected',collected);showToast(d.message)})}
 function copyLink(url){navigator.clipboard.writeText(url).then(()=>showToast('链接已复制')).catch(()=>showToast('复制失败'))}
+
+// 如果页面加载时没有正文，异步获取
+{% if not resource.content and resource.sourceUrl %}
+(function(){
+  const area=document.getElementById('contentArea');
+  if(!area)return;
+  fetch('/api/fetch-content?url={{ resource.sourceUrl|urlencode }}')
+    .then(r=>r.json())
+    .then(d=>{
+      if(d.code===0 && d.data && d.data.content){
+        area.innerHTML=d.data.content;
+      } else {
+        area.innerHTML='<p style="color:var(--tl);text-align:center;padding:20px">暂无全文内容，请点击「查看原文」访问原始页面</p>';
+      }
+    })
+    .catch(()=>{
+      area.innerHTML='<p style="color:var(--tl);text-align:center;padding:20px">全文加载失败，请点击「查看原文」访问原始页面</p>';
+    });
+})();
+{% endif %}
 </script>
 {% endblock %}

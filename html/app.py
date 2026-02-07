@@ -317,6 +317,14 @@ def api_suggestions():
     resp = api_get('/api/search/suggestions', {'prefix': prefix})
     return jsonify(resp if resp.get('code') == 0 else {'code': 0, 'data': []})
 
+@app.route('/api/fetch-content')
+def api_fetch_content():
+    url = request.args.get('url', '').strip()
+    if not url:
+        return jsonify(code=-1, data={'content': ''})
+    resp = api_get('/api/resources/fetch-content', {'url': url}, timeout=15)
+    return jsonify(resp if resp.get('code') == 0 else {'code': -1, 'data': {'content': ''}})
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
     data = request.get_json() or {}
