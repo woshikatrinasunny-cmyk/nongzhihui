@@ -1,4 +1,4 @@
-const localData = require('../../utils/local-data.js');
+const api = require('../../utils/api.js');
 
 Page({
   data: {
@@ -19,13 +19,24 @@ Page({
   },
 
   onLoad() {
-    const hot = localData.getHotResources(5).map(r => ({
-      ...r, category: localData.CATEGORY_MAP[r.category] || r.category
-    }));
-    const latest = localData.getLatestPolicies(5).map(r => ({
-      ...r, category: localData.CATEGORY_MAP[r.category] || r.category
-    }));
-    this.setData({ hotResources: hot, latestPolicies: latest, loading: false });
+    this.loadData();
+  },
+
+  onPullDownRefresh() {
+    api.resetOnlineStatus();
+    this.loadData().then(() => wx.stopPullDownRefresh());
+  },
+
+  loadData() {
+    this.setData({ loading: true });
+    return Promise.all([
+      api.getHotResources(5),
+      api.getLatestPolicies(5)
+    ]).then(([hot, latest]) => {
+      this.setData({ hotResources: hot, latestPolicies: latest, loading: false });
+    }).catch(() => {
+      this.setData({ loading: false });
+    });
   },
 
   goToSearch() {

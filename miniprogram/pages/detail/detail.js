@@ -1,11 +1,13 @@
 const localData = require('../../utils/local-data.js');
+const api = require('../../utils/api.js');
 
 Page({
   data: {
     resourceId: '',
     resource: null,
     isCollected: false,
-    relatedResources: []
+    relatedResources: [],
+    isWebResource: false
   },
 
   onLoad(options) {
@@ -13,16 +15,26 @@ Page({
     this.setData({ resourceId: id });
     if (!id) return;
 
-    const resource = localData.getResourceById(id);
-    if (resource) {
+    // 先尝试从后端获取（含正文抓取），失败则用本地数据
+    api.getResourceById(id).then(({ resource, isWeb }) => {
+      if (!resource) return;
       this.setData({
         resource,
         isCollected: localData.isCollected(id),
-        relatedResources: localData.getRelatedResources(resource, 5)
+        isWebResource: isWeb
       });
       wx.setNavigationBarTitle({ title: resource.title });
       localData.addHistory(resource);
-    }
+
+      // 加载相关推荐
+      if (isWeb) {
+        api.getRelatedResources(id).then(list => {
+          this.setData({ relatedResources: list });
+        });
+      } else {
+        this.setData({ relatedResources: localData.getRelatedResources(resource, 5) });
+      }
+    });
   },
 
   toggleCollect() {

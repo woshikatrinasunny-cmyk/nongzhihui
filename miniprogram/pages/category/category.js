@@ -1,5 +1,5 @@
 const app = getApp();
-const localData = require('../../utils/local-data.js');
+const api = require('../../utils/api.js');
 
 Page({
   data: {
@@ -13,7 +13,8 @@ Page({
     resourceList: [],
     page: 1,
     pageSize: 20,
-    hasMore: false
+    hasMore: false,
+    loading: false
   },
 
   onLoad(options) {
@@ -33,13 +34,17 @@ Page({
   },
 
   loadResources() {
-    const result = localData.getResources({
+    this.setData({ loading: true });
+    api.getResources({
       category: this.data.currentCategory,
       page: this.data.page,
       pageSize: this.data.pageSize
+    }).then(result => {
+      const newList = this.data.page === 1 ? result.list : [...this.data.resourceList, ...result.list];
+      this.setData({ resourceList: newList, hasMore: result.hasMore, loading: false });
+    }).catch(() => {
+      this.setData({ loading: false });
     });
-    const newList = this.data.page === 1 ? result.list : [...this.data.resourceList, ...result.list];
-    this.setData({ resourceList: newList, hasMore: result.hasMore });
   },
 
   selectCategory(e) {
@@ -61,6 +66,7 @@ Page({
   },
 
   onPullDownRefresh() {
+    api.resetOnlineStatus();
     this.setData({ page: 1, resourceList: [] });
     this.loadResources();
     wx.stopPullDownRefresh();
