@@ -9,8 +9,9 @@ Page({
     searchResults: [],
     totalCount: 0,
     loading: false,
-    hasSearched: false, // 标记是否已搜索过
+    hasSearched: false,
     showFilter: false,
+    suggestions: [],
     filters: {
       category: '',
       sortBy: 'relevance'
@@ -29,7 +30,47 @@ Page({
   },
 
   onInput(e) {
-    this.setData({ keyword: e.detail.value });
+    const value = e.detail.value;
+    this.setData({ keyword: value });
+    // 获取搜索联想词
+    clearTimeout(this._suggestionTimer);
+    this._suggestionTimer = setTimeout(() => {
+      this.fetchSuggestions(value.trim());
+    }, 150);
+  },
+
+  fetchSuggestions(prefix) {
+    if (!prefix || prefix.length < 1) {
+      this.setData({ suggestions: [] });
+      return;
+    }
+    wx.request({
+      url: `${app.globalData.apiUrl}/api/search/suggestions`,
+      data: { prefix },
+      success: (res) => {
+        if (res.data && res.data.code === 0) {
+          this.setData({ suggestions: res.data.data || [] });
+        }
+      },
+      fail: () => {
+        this.setData({ suggestions: [] });
+      }
+    });
+  },
+
+  selectSuggestion(e) {
+    const keyword = e.currentTarget.dataset.keyword;
+    this.setData({ keyword, suggestions: [] });
+    this.saveSearchHistory(keyword);
+    this.performSearch();
+  },
+
+  setSort(e) {
+    const sortBy = e.currentTarget.dataset.sort;
+    this.setData({ 'filters.sortBy': sortBy });
+    if (this.data.keyword) {
+      this.performSearch();
+    }
   },
 
   onSearch() {
@@ -46,7 +87,7 @@ Page({
     const keyword = this.data.keyword.trim();
     if (!keyword) return;
 
-    this.setData({ loading: true, hasSearched: true });
+    this.setData({ loading: true, hasSearched: true, suggestions: [] });
     
     const params = {
       keyword: keyword,

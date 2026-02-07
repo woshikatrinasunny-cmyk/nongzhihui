@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const webSearch = require('../services/web-search');
 const aggregator = require('../services/aggregator');
+const suggestion = require('../services/suggestion');
+const filter = require('../services/filter');
+const smartSort = require('../services/smart-sort');
 
 // 搜索接口 - 使用真实网络搜索
 router.get('/', async (req, res) => {
@@ -11,7 +14,13 @@ router.get('/', async (req, res) => {
       category,
       sortBy = 'relevance',
       page = 1, 
-      pageSize = 10
+      pageSize = 10,
+      yearMin,
+      yearMax,
+      categories,
+      sources,
+      regions,
+      cropTypes
     } = req.query;
     
     if (!keyword) {
@@ -54,8 +63,25 @@ router.get('/', async (req, res) => {
       return true;
     });
 
+    // 应用筛选条件
+    const filters = {};
+    if (yearMin || yearMax) {
+      filters.year = [parseInt(yearMin) || 2000, parseInt(yearMax) || new Date().getFullYear()];
+    }
+    if (categories) filters.category = categories.split(',');
+    if (sources) filters.source = sources.split(',');
+    if (regions) filters.region = regions.split(',');
+    if (cropTypes) filters.cropType = cropTypes.split(',');
+
+    const hasFilters = Object.keys(filters).length > 0;
+    const filteredList = hasFilters ? filter.applyFilters(list, filters) : list;
+    const filterCounts = filter.computeFilterCounts(list, filters);
+
+    // 智能排序
+    const sortedList = smartSort.sort(filteredList, sortBy, keyword);
+
     // 分页
-    const finalList = list.slice(0, parseInt(pageSize));
+    const finalList = sortedList.slice(0, parseInt(pageSize));
 
     console.log('[搜索路由] 最终返回', finalList.length, '条结果');
 
@@ -63,8 +89,10 @@ router.get('/', async (req, res) => {
       code: 0,
       data: {
         list: finalList,
-        total: list.length,
-        hasMore: list.length > parseInt(pageSize)
+        total: filteredList.length,
+        hasMore: filteredList.length > parseInt(pageSize),
+        filterCounts,
+        sortBy
       }
     });
   } catch (error) {
@@ -100,6 +128,18 @@ router.get('/local', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ code: -1, message: '搜索失败', error: error.message });
+  }
+});
+
+// 搜索联想词
+router.get('/suggestions', (req, res) => {
+  try {
+    const { prefix } = req.query;
+    const results = suggestion.getSuggestions(prefix || '', 8);
+    res.json({ code: 0, data: results });
+  } catch (error) {
+    console.error('[联想词] 查询失败:', error.message);
+    res.json({ code: 0, data: [] });
   }
 });
 

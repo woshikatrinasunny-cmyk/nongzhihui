@@ -15,6 +15,17 @@
       </view>
       <view class="search-btn" bindtap="onSearch">搜索</view>
     </view>
+    <!-- 搜索联想词 -->
+    <view class="suggestion-list" wx:if="{{suggestions.length > 0}}">
+      <view class="suggestion-item" 
+            wx:for="{{suggestions}}" 
+            wx:key="index"
+            bindtap="selectSuggestion"
+            data-keyword="{{item}}">
+        <text class="suggestion-icon">🔍</text>
+        <text>{{item}}</text>
+      </view>
+    </view>
   </view>
 
   <!-- 搜索历史 -->
@@ -60,6 +71,13 @@
     <view class="results-header">
       <text class="results-count">找到 {{totalCount}} 条相关结果</text>
       <text class="results-tip">数据来自互联网</text>
+    </view>
+    <!-- 排序栏 -->
+    <view class="sort-bar">
+      <view class="sort-item {{filters.sortBy === 'relevance' ? 'active' : ''}}" bindtap="setSort" data-sort="relevance">综合</view>
+      <view class="sort-item {{filters.sortBy === 'time' ? 'active' : ''}}" bindtap="setSort" data-sort="time">最新</view>
+      <view class="sort-item {{filters.sortBy === 'authority' ? 'active' : ''}}" bindtap="setSort" data-sort="authority">权威</view>
+      <view class="sort-item {{filters.sortBy === 'popularity' ? 'active' : ''}}" bindtap="setSort" data-sort="popularity">热度</view>
     </view>
 
     <view class="result-list">

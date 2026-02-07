@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const webSearch = require('../services/web-search');
+const recommendation = require('../services/recommendation');
 
 // 分类对应的搜索关键词
 const categoryKeywords = {
@@ -130,7 +131,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// 获取相关资源
+// 获取相关资源（使用推荐服务）
 router.get('/:id/related', async (req, res) => {
   try {
     const resourceId = req.params.id;
@@ -139,11 +140,19 @@ router.get('/:id/related', async (req, res) => {
     if (!resource) {
       return res.json({ code: 0, data: [] });
     }
-    
-    const keyword = categoryKeywords[resource.category] || resource.tags?.[0] || '涉农资源';
-    const result = await searchWithTimeout(keyword, { category: resource.category, pageSize: 6 }, 8000);
-    const related = result.list.filter(item => String(item._id) !== String(resourceId)).slice(0, 5);
-    cacheResources(related);
+
+    // 先尝试从缓存池中用推荐服务计算
+    const pool = Array.from(resourceCache.values());
+    let related = recommendation.getRecommendations(resource, pool, 6);
+
+    // 如果缓存池推荐不足，补充网络搜索结果
+    if (related.length < 3) {
+      const keyword = categoryKeywords[resource.category] || resource.tags?.[0] || '涉农资源';
+      const result = await searchWithTimeout(keyword, { category: resource.category, pageSize: 10 }, 8000);
+      cacheResources(result.list);
+      const expandedPool = [...pool, ...result.list];
+      related = recommendation.getRecommendations(resource, expandedPool, 6);
+    }
 
     res.json({ code: 0, data: related });
   } catch (error) {

@@ -494,18 +494,34 @@ class AggregatorService {
   }
 
   /**
-   * 结果去重
+   * 结果去重（标准化标题：去除空白、标点、转小写）
    */
   deduplicateResults(results) {
     const seen = new Map();
     return results.filter(item => {
-      const key = item.title.toLowerCase().trim();
+      const key = this.normalizeTitle(item.title);
       if (seen.has(key)) {
         return false;
       }
       seen.set(key, true);
+      // 确保每个结果都有非空 platform 标签
+      if (!item.platformName) {
+        item.platformName = item.platform || item.source || '未知来源';
+      }
       return true;
     });
+  }
+
+  /**
+   * 标准化标题用于去重比较
+   */
+  normalizeTitle(title) {
+    if (!title) return '';
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[\s\u3000]+/g, '')           // 去除空白
+      .replace(/[，。、；：！？""''（）【】《》\.\,\;\:\!\?\"\'\(\)\[\]\<\>]/g, ''); // 去除中英文标点
   }
 
   /**

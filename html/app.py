@@ -109,16 +109,18 @@ feedback_store = []
 resource_cache = {}  # _id -> resource dict (Flask 侧缓存，解决后端缓存未命中问题)
 
 # ============ 后端 API 调用 ============
-def api_get(path, params=None, timeout=15):
-    """调用 Node 后端 GET 接口"""
+def api_get(path, params=None, timeout=60):
+    """调用 Node 后端 GET 接口（Render 免费实例唤醒需要 50s+）"""
     try:
+        print(f'[API] GET {API_BASE}{path}')
         r = requests.get(f'{API_BASE}{path}', params=params, timeout=timeout)
+        print(f'[API] GET {path} -> {r.status_code}')
         return r.json()
     except Exception as e:
         print(f'[API] GET {path} 失败: {e}')
         return {'code': -1, 'data': [], 'message': str(e)}
 
-def api_post(path, data=None, timeout=15):
+def api_post(path, data=None, timeout=60):
     """调用 Node 后端 POST 接口"""
     try:
         r = requests.post(f'{API_BASE}{path}', json=data, timeout=timeout)
@@ -275,20 +277,45 @@ def api_search():
     keyword = request.args.get('keyword', '').strip()
     cat = request.args.get('category', '')
     sort_by = request.args.get('sortBy', 'relevance')
+    categories = request.args.get('categories', '')
+    sources = request.args.get('sources', '')
+    regions = request.args.get('regions', '')
+    crop_types = request.args.get('cropTypes', '')
+    year_min = request.args.get('yearMin', '')
+    year_max = request.args.get('yearMax', '')
     if not keyword:
         return jsonify(code=0, data={'list': [], 'total': 0})
     params = {'keyword': keyword, 'sortBy': sort_by, 'page': 1, 'pageSize': 20}
     if cat:
         params['category'] = cat
+    if categories:
+        params['categories'] = categories
+    if sources:
+        params['sources'] = sources
+    if regions:
+        params['regions'] = regions
+    if crop_types:
+        params['cropTypes'] = crop_types
+    if year_min:
+        params['yearMin'] = year_min
+    if year_max:
+        params['yearMax'] = year_max
     resp = api_get('/api/search', params)
     if resp.get('code') == 0:
-        # 清洗搜索结果
         data = resp.get('data', {})
         if isinstance(data, dict) and 'list' in data:
-            data['list'] = clean_list(data['list'])  # clean_list 会自动缓存到 resource_cache
+            data['list'] = clean_list(data['list'])
             resp['data'] = data
         return jsonify(resp)
     return jsonify(code=0, data={'list': [], 'total': 0})
+
+@app.route('/api/suggestions')
+def api_suggestions():
+    prefix = request.args.get('prefix', '').strip()
+    if not prefix:
+        return jsonify(code=0, data=[])
+    resp = api_get('/api/search/suggestions', {'prefix': prefix})
+    return jsonify(resp if resp.get('code') == 0 else {'code': 0, 'data': []})
 
 @app.route('/api/login', methods=['POST'])
 def api_login():

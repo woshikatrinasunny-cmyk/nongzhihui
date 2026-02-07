@@ -4,11 +4,14 @@
 {% block extra_style %}
 .search-hero{background:linear-gradient(160deg,#1B5E20,#2E7D32 40%,#388E3C);padding:36px 24px 40px;position:relative;overflow:hidden}
 .search-hero::before{content:'';position:absolute;top:-40%;right:-10%;width:400px;height:400px;background:rgba(255,255,255,.04);border-radius:50%}
-.search-form{max-width:700px;margin:0 auto;display:flex;gap:12px}
+.search-form{max-width:700px;margin:0 auto;display:flex;gap:12px;position:relative}
 .search-form input{flex:1;padding:15px 22px;border:none;border-radius:28px;font-size:16px;outline:none;font-family:'Noto Serif SC',serif;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
 .search-form input::placeholder{color:#aaa}
 .search-form button{background:var(--w);color:var(--gd);border:none;border-radius:28px;padding:0 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:1px;transition:all .25s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
 .search-form button:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.suggestion-dropdown{position:absolute;top:100%;left:0;right:80px;background:var(--w);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.15);margin-top:6px;overflow:hidden;z-index:100;display:none}
+.suggestion-item{padding:12px 22px;cursor:pointer;font-size:14px;transition:background .15s;font-family:'Noto Serif SC',serif}
+.suggestion-item:hover{background:var(--gbg);color:var(--gd)}
 .hot-section{margin-bottom:32px}
 .hot-section h3{display:flex;align-items:center;gap:8px;font-size:17px;color:var(--gd);margin-bottom:16px;font-weight:700;letter-spacing:1px}
 .hot-list{display:flex;flex-direction:column;gap:8px}
@@ -36,6 +39,10 @@
 .filter-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
 .filter-btn{padding:8px 20px;border-radius:24px;border:1.5px solid #e0e0e0;background:var(--w);font-size:13px;cursor:pointer;transition:all .25s;font-family:'Noto Serif SC',serif;letter-spacing:.5px;font-weight:500}
 .filter-btn.active,.filter-btn:hover{border-color:var(--gd);color:var(--gd);background:var(--gbg)}
+.sort-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.sort-label{font-size:13px;color:var(--tl);font-weight:500}
+.sort-btn{padding:6px 14px;border-radius:16px;border:1px solid #e0e0e0;background:var(--w);font-size:12px;cursor:pointer;transition:all .2s;font-family:'Noto Serif SC',serif}
+.sort-btn.active,.sort-btn:hover{border-color:var(--gd);color:var(--gd);background:var(--gbg)}
 {% endblock %}
 
 {% block content %}
@@ -43,6 +50,7 @@
   <form class="search-form" id="searchForm">
     <input type="text" id="searchInput" placeholder="搜索涉农法律、政策、技术..." autocomplete="off" value="{{ request.args.get('keyword','') }}">
     <button type="submit">搜索</button>
+    <div class="suggestion-dropdown" id="suggestionDropdown"></div>
   </form>
 </div>
 
@@ -73,6 +81,13 @@
       <button class="filter-btn" onclick="setFilter(this,'tech')">🌾 技术</button>
       <button class="filter-btn" onclick="setFilter(this,'culture')">📖 文化</button>
     </div>
+    <div class="sort-bar">
+      <span class="sort-label">排序：</span>
+      <button class="sort-btn active" onclick="setSort(this,'relevance')">综合相关</button>
+      <button class="sort-btn" onclick="setSort(this,'time')">最新发布</button>
+      <button class="sort-btn" onclick="setSort(this,'authority')">权威优先</button>
+      <button class="sort-btn" onclick="setSort(this,'popularity')">热度排序</button>
+    </div>
     <div class="results-header">
       <span class="results-count" id="resultsCount"></span>
       <span class="results-tip">数据来自互联网实时搜索</span>
@@ -96,14 +111,25 @@
 {% block extra_script %}
 <script>
 const catNameMap={law:'法律法规',policy:'政策文件',tech:'农技手册',culture:'乡土文献'};
-let currentCat='';
+let currentCat='',currentSort='relevance',suggestionTimer=null;
 function getHistory(){return JSON.parse(localStorage.getItem('searchHistory')||'[]')}
 function saveHistory(kw){let h=getHistory().filter(x=>x!==kw);h.unshift(kw);localStorage.setItem('searchHistory',JSON.stringify(h.slice(0,10)));renderHistory()}
 function clearHistory(){localStorage.removeItem('searchHistory');renderHistory()}
 function renderHistory(){const h=getHistory(),sec=document.getElementById('historySection'),tags=document.getElementById('historyTags');if(!h.length){sec.style.display='none';return}sec.style.display='block';tags.innerHTML='';h.forEach(kw=>{const d=document.createElement('div');d.className='tag-chip';d.textContent=kw;d.onclick=()=>doSearch(kw);tags.appendChild(d)})}
-function doSearch(kw){document.getElementById('searchInput').value=kw;performSearch(kw)}
+function doSearch(kw){document.getElementById('searchInput').value=kw;hideSuggestions();performSearch(kw)}
 function setFilter(el,cat){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');currentCat=cat;const kw=document.getElementById('searchInput').value.trim();if(kw)performSearch(kw)}
-function performSearch(kw){if(!kw)return;saveHistory(kw);document.getElementById('preSearch').style.display='none';document.getElementById('resultsArea').style.display='none';document.getElementById('emptyState').style.display='none';document.getElementById('loadingState').style.display='block';const params=new URLSearchParams({keyword:kw});if(currentCat)params.set('category',currentCat);fetch('/api/search?'+params).then(r=>r.json()).then(d=>{document.getElementById('loadingState').style.display='none';const list=d.data.list||[];if(!list.length){document.getElementById('emptyState').style.display='block';document.getElementById('resultsArea').style.display='block';document.getElementById('resultsCount').textContent='找到 0 条结果';document.getElementById('resultsList').innerHTML='';return}document.getElementById('resultsArea').style.display='block';document.getElementById('resultsCount').textContent='找到 '+d.data.total+' 条相关结果';const c=document.getElementById('resultsList');c.innerHTML='';list.forEach(item=>{const tags=(item.tags||[]).slice(0,2).map(t=>'<span class="result-tag">'+t+'</span>').join('');c.innerHTML+='<a href="/detail/'+item._id+'" class="result-card"><div class="result-accent '+(item.category||'')+'"></div><div class="result-body"><div class="result-top"><span class="cat-tag cat-'+(item.category||'')+'">'+(catNameMap[item.category]||item.category||'')+'</span>'+(item.source?'<span style="font-size:12px;color:var(--tlr)">'+item.source+'</span>':'')+'</div><div class="result-title">'+item.title+'</div>'+(item.summary?'<div class="result-summary">'+item.summary+'</div>':'')+'<div class="result-bottom"><div class="result-tags">'+tags+'</div>'+(item.publishTime?'<span>'+item.publishTime+'</span>':'')+'</div></div></a>'})})}
+function setSort(el,mode){document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');currentSort=mode;const kw=document.getElementById('searchInput').value.trim();if(kw)performSearch(kw)}
+
+// 搜索联想词
+function showSuggestions(list){const dd=document.getElementById('suggestionDropdown');if(!list||!list.length){dd.style.display='none';return}dd.innerHTML='';list.forEach(s=>{const d=document.createElement('div');d.className='suggestion-item';d.textContent=s;d.onclick=()=>doSearch(s);dd.appendChild(d)});dd.style.display='block'}
+function hideSuggestions(){document.getElementById('suggestionDropdown').style.display='none'}
+function fetchSuggestions(prefix){if(!prefix||prefix.length<1){hideSuggestions();return}fetch('/api/suggestions?prefix='+encodeURIComponent(prefix)).then(r=>r.json()).then(d=>showSuggestions(d.data||[])).catch(()=>hideSuggestions())}
+
+document.getElementById('searchInput').addEventListener('input',function(){clearTimeout(suggestionTimer);const v=this.value.trim();suggestionTimer=setTimeout(()=>fetchSuggestions(v),150)});
+document.getElementById('searchInput').addEventListener('focus',function(){const v=this.value.trim();if(v)fetchSuggestions(v)});
+document.addEventListener('click',function(e){if(!e.target.closest('.search-form'))hideSuggestions()});
+
+function performSearch(kw){if(!kw)return;saveHistory(kw);hideSuggestions();document.getElementById('preSearch').style.display='none';document.getElementById('resultsArea').style.display='none';document.getElementById('emptyState').style.display='none';document.getElementById('loadingState').style.display='block';const params=new URLSearchParams({keyword:kw,sortBy:currentSort});if(currentCat)params.set('categories',currentCat);fetch('/api/search?'+params).then(r=>r.json()).then(d=>{document.getElementById('loadingState').style.display='none';const list=d.data.list||[];if(!list.length){document.getElementById('emptyState').style.display='block';document.getElementById('resultsArea').style.display='block';document.getElementById('resultsCount').textContent='找到 0 条结果';document.getElementById('resultsList').innerHTML='';return}document.getElementById('resultsArea').style.display='block';document.getElementById('resultsCount').textContent='找到 '+d.data.total+' 条相关结果';const c=document.getElementById('resultsList');c.innerHTML='';list.forEach(item=>{const tags=(item.tags||[]).slice(0,2).map(t=>'<span class="result-tag">'+t+'</span>').join('');c.innerHTML+='<a href="/detail/'+item._id+'" class="result-card"><div class="result-accent '+(item.category||'')+'"></div><div class="result-body"><div class="result-top"><span class="cat-tag cat-'+(item.category||'')+'">'+(catNameMap[item.category]||item.category||'')+'</span>'+(item.source?'<span style="font-size:12px;color:var(--tlr)">'+item.source+'</span>':'')+'</div><div class="result-title">'+item.title+'</div>'+(item.summary?'<div class="result-summary">'+item.summary+'</div>':'')+'<div class="result-bottom"><div class="result-tags">'+tags+'</div>'+(item.publishTime?'<span>'+item.publishTime+'</span>':'')+'</div></div></a>'})})}
 document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const kw=document.getElementById('searchInput').value.trim();if(kw)performSearch(kw);else showToast('请输入搜索关键词')});
 renderHistory();
 const urlKw=new URLSearchParams(location.search).get('keyword');if(urlKw){document.getElementById('searchInput').value=urlKw;performSearch(urlKw)}

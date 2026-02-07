@@ -117,6 +117,7 @@
   <!-- 热门资源 -->
   <div class="section">
     <div class="section-head"><span class="emoji">🔥</span><h2>热门资源</h2></div>
+    {% if hot_resources %}
     <div class="res-grid">
       {% for r in hot_resources %}
       <a href="/detail/{{ r._id }}" class="res-card">
@@ -133,11 +134,19 @@
       </a>
       {% endfor %}
     </div>
+    {% else %}
+    <div class="empty">
+      <span class="emoji">📡</span>
+      <div class="text">后端服务正在启动中，请稍后刷新页面</div>
+      <div class="sub">Render 免费实例首次访问需要约 1 分钟唤醒</div>
+    </div>
+    {% endif %}
   </div>
 
   <!-- 最新政策 -->
   <div class="section">
     <div class="section-head"><span class="emoji">📋</span><h2>最新政策</h2></div>
+    {% if latest_policies %}
     <div class="res-grid">
       {% for r in latest_policies %}
       <a href="/detail/{{ r._id }}" class="res-card">
@@ -154,6 +163,13 @@
       </a>
       {% endfor %}
     </div>
+    {% else %}
+    <div class="empty">
+      <span class="emoji">📋</span>
+      <div class="text">暂无最新政策</div>
+      <div class="sub">请稍后刷新页面</div>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
