@@ -1,4 +1,5 @@
 const app = getApp();
+const localData = require('../../utils/local-data.js');
 
 Page({
   data: {
@@ -12,89 +13,44 @@ Page({
     resourceList: [],
     page: 1,
     pageSize: 20,
-    hasMore: true
+    hasMore: false
   },
 
   onLoad(options) {
-    if (options.type) {
-      this.setData({ currentCategory: options.type });
-    }
+    if (options.type) this.setData({ currentCategory: options.type });
     this.loadResources();
   },
 
   onShow() {
-    // 检查是否有待切换的分类
     if (app.globalData.pendingCategory) {
       const category = app.globalData.pendingCategory;
-      app.globalData.pendingCategory = null; // 清除标记
-      
+      app.globalData.pendingCategory = null;
       if (category !== this.data.currentCategory) {
-        this.setData({
-          currentCategory: category,
-          page: 1,
-          resourceList: []
-        });
+        this.setData({ currentCategory: category, page: 1, resourceList: [] });
         this.loadResources();
       }
     }
   },
 
-  // 供外部调用的方法，用于切换分类
-  selectCategoryByType(type) {
-    if (type && type !== this.data.currentCategory) {
-      this.setData({
-        currentCategory: type,
-        page: 1,
-        resourceList: []
-      });
-      this.loadResources();
-    }
-  },
-
   loadResources() {
-    wx.showLoading({ title: '加载中...' });
-    
-    wx.request({
-      url: `${app.globalData.apiUrl}/api/resources`,
-      data: {
-        category: this.data.currentCategory,
-        page: this.data.page,
-        pageSize: this.data.pageSize
-      },
-      timeout: 15000,
-      success: (res) => {
-        wx.hideLoading();
-        if (res.data && res.data.code === 0) {
-          const list = res.data.data.list || [];
-          const newList = this.data.page === 1 ? list : [...this.data.resourceList, ...list];
-          this.setData({
-            resourceList: newList,
-            hasMore: res.data.data.hasMore || false
-          });
-        }
-      },
-      fail: () => {
-        wx.hideLoading();
-        wx.showToast({ title: '加载失败，请重试', icon: 'none' });
-      }
+    const result = localData.getResources({
+      category: this.data.currentCategory,
+      page: this.data.page,
+      pageSize: this.data.pageSize
     });
+    const newList = this.data.page === 1 ? result.list : [...this.data.resourceList, ...result.list];
+    this.setData({ resourceList: newList, hasMore: result.hasMore });
   },
 
   selectCategory(e) {
     const category = e.currentTarget.dataset.category;
-    this.setData({
-      currentCategory: category,
-      page: 1,
-      resourceList: []
-    });
+    this.setData({ currentCategory: category, page: 1, resourceList: [] });
     this.loadResources();
   },
 
   viewDetail(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/detail/detail?id=${id}`
-    });
+    wx.navigateTo({ url: `/pages/detail/detail?id=${id}` });
   },
 
   onReachBottom() {

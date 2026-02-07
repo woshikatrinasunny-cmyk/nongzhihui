@@ -1,21 +1,12 @@
 <view class="container">
   <!-- 用户信息 -->
   <view class="user-card">
-    <view class="user-info" wx:if="{{hasLogin}}">
-      <view class="avatar">👤</view>
+    <view class="user-info">
+      <view class="avatar">🌾</view>
       <view class="user-detail">
-        <text class="nickname">{{userInfo.nickName}}</text>
-        <text class="user-id">ID: {{userInfo.openid.slice(0, 12)}}...</text>
+        <text class="nickname">农智汇用户</text>
+        <text class="user-id">涉农知识聚合平台</text>
       </view>
-      <button class="logout-btn" bindtap="logout">退出</button>
-    </view>
-    <view class="user-info" wx:else bindtap="getUserProfile">
-      <view class="avatar">👤</view>
-      <view class="user-detail">
-        <text class="nickname">点击登录</text>
-        <text class="user-id">登录后享受更多服务</text>
-      </view>
-      <text class="login-arrow">→</text>
     </view>
   </view>
 

@@ -10,13 +10,11 @@
       <view class="result-title">{{item.title}}</view>
       <view class="result-summary">{{item.summary || '暂无简介'}}</view>
       <view class="result-meta">
-        <text class="result-tag">{{item.category || '未知分类'}}</text>
-        <text class="result-time">{{item.createAt ? item.createAt.slice(0,10) : '未知时间'}}</text>
+        <text class="result-tag">{{item.categoryName || item.category || '未知分类'}}</text>
+        <text class="result-time">{{item.publishTime || ''}}</text>
       </view>
     </view>
-    <!-- 加载更多提示 -->
-    <view class="loading" wx:if="{{loading && hasMore}}">加载更多...</view>
-    <view class="loading" wx:if="{{!hasMore && favorites.length > 0}}">已加载全部</view>
+    <view class="loading" wx:if="{{!loading && favorites.length > 0}}">共 {{favorites.length}} 条收藏</view>
   </view>
 
   <!-- 空状态 -->
