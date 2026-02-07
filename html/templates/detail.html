@@ -2,13 +2,9 @@
 {% set active_tab = '' %}
 {% block title %}{{ resource.title }}{% endblock %}
 {% block extra_style %}
-.detail-hero{position:relative;height:260px;overflow:hidden}
-.detail-hero img{width:100%;height:100%;object-fit:cover}
-.detail-hero .overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.2) 50%,transparent)}
-.detail-hero .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;color:#fff}
-.detail-hero .hero-content h1{font-size:26px;font-weight:700;line-height:1.4;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
-.detail-wrap{max-width:860px;margin:0 auto}
+.detail-wrap{max-width:900px;margin:0 auto}
 .detail-card{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);padding:36px;margin-bottom:20px}
+.detail-title{font-size:24px;font-weight:700;line-height:1.5;letter-spacing:1px;margin-bottom:16px;color:var(--t)}
 .detail-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}
 .meta-source,.meta-time{font-size:13px;color:var(--tlr)}
 .detail-summary{background:linear-gradient(135deg,#f1f8e9,#e8f5e9);border-radius:var(--rs);padding:20px 24px;margin-bottom:24px;border-left:4px solid var(--gd)}
@@ -25,6 +21,17 @@
 .action-btn:hover{color:var(--gd);background:var(--gbg);transform:translateY(-2px);box-shadow:var(--shl)}
 .action-btn.collected{color:var(--gd);background:var(--gbg)}
 .action-btn .emoji{font-size:20px}
+.iframe-section{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:20px}
+.iframe-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #f0f0f0;background:#fafafa}
+.iframe-header-left{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--gd)}
+.iframe-header-right a{font-size:13px;color:var(--gd);text-decoration:none}
+.iframe-header-right a:hover{text-decoration:underline}
+.iframe-wrap{width:100%;height:70vh;min-height:500px}
+.iframe-wrap iframe{width:100%;height:100%;border:none}
+.iframe-fallback{padding:40px;text-align:center;color:var(--tl)}
+.iframe-fallback p{margin-bottom:12px;font-size:14px;line-height:1.8}
+.iframe-fallback .open-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:24px;font-size:14px;text-decoration:none;font-weight:600;transition:all .25s;box-shadow:0 4px 12px rgba(46,125,50,.3)}
+.iframe-fallback .open-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(46,125,50,.4)}
 .related{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);padding:28px;overflow:hidden}
 .related h3{display:flex;align-items:center;gap:8px;font-size:18px;color:var(--gd);margin-bottom:20px;letter-spacing:1px}
 .related-item{padding:16px 0;border-bottom:1px solid #f5f5f5;transition:all .2s}
@@ -35,19 +42,20 @@
 .related-meta{display:flex;gap:8px;font-size:12px;color:var(--tlr)}
 .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--gd);font-size:14px;margin-bottom:16px;font-weight:500;letter-spacing:.5px}
 .back-link:hover{text-decoration:underline}
+.tab-bar{display:flex;gap:0;margin-bottom:0}
+.tab-btn{flex:1;padding:14px;text-align:center;font-size:14px;font-weight:600;cursor:pointer;border:none;background:#fafafa;color:var(--tl);transition:all .2s;font-family:'Noto Serif SC',serif;letter-spacing:1px;border-bottom:3px solid transparent}
+.tab-btn.active{color:var(--gd);background:var(--w);border-bottom-color:var(--gd)}
+.tab-btn:hover{color:var(--gd)}
+.tab-content{display:none}
+.tab-content.active{display:block}
 {% endblock %}
 
 {% block content %}
-<div class="detail-hero">
-  <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80" alt="">
-  <div class="overlay"></div>
-  <div class="hero-content"><h1>{{ resource.title }}</h1></div>
-</div>
-
 <div class="container detail-wrap">
   <a href="javascript:history.back()" class="back-link">← 返回</a>
 
   <div class="detail-card">
+    <div class="detail-title">{{ resource.title }}</div>
     <div class="detail-meta">
       <span class="cat-tag cat-{{ resource.category }}">{{ resource.category|cat_name }}</span>
       {% if resource.source %}<span class="meta-source">{{ resource.source }}</span>{% endif %}
@@ -62,27 +70,12 @@
     </div>
     {% endif %}
 
-    {% if resource.content %}
-    <div class="detail-content">{{ resource.content|safe }}</div>
-    {% else %}
-    <div class="detail-content" id="contentArea">
-      <div style="text-align:center;padding:30px;color:var(--tl)">
-        <div class="loading-dots" id="contentLoading"><span></span><span></span><span></span></div>
-        <p style="margin-top:8px;font-size:13px">正在加载全文...</p>
-      </div>
-    </div>
-    {% endif %}
-
     {% if resource.tags %}
     <div class="detail-tags">
       {% for tag in resource.tags %}
       <a href="/search?keyword={{ tag }}" class="tag">#{{ tag }}</a>
       {% endfor %}
     </div>
-    {% endif %}
-
-    {% if resource.sourceUrl %}
-    <div class="source-tip">数据来源于互联网公开信息</div>
     {% endif %}
   </div>
 
@@ -92,11 +85,42 @@
       <span id="collectText">{{ '已收藏' if is_collected else '收藏' }}</span>
     </button>
     {% if resource.sourceUrl %}
-    <button class="action-btn" onclick="copyLink('{{ resource.sourceUrl }}')">
-      <span class="emoji">🔗</span> 查看原文
-    </button>
+    <a class="action-btn" href="{{ resource.sourceUrl }}" target="_blank" rel="noopener">
+      <span class="emoji">🔗</span> 新窗口打开原文
+    </a>
     {% endif %}
   </div>
+
+  {% if resource.sourceUrl %}
+  <div class="iframe-section">
+    <div class="tab-bar">
+      <div class="tab-btn active" onclick="switchTab(this,'iframe')">📄 原文阅读</div>
+      <div class="tab-btn" onclick="switchTab(this,'info')">ℹ️ 资源信息</div>
+    </div>
+    <div class="tab-content active" id="tab-iframe">
+      <div class="iframe-wrap" id="iframeWrap">
+        <iframe id="contentFrame" src="{{ resource.sourceUrl }}" sandbox="allow-same-origin allow-scripts allow-popups" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+      <div class="iframe-fallback" id="iframeFallback" style="display:none">
+        <p>⚠️ 原始页面无法在此嵌入显示（部分网站禁止嵌入）</p>
+        <p>您可以直接访问原始页面查看完整内容：</p>
+        <a class="open-btn" href="{{ resource.sourceUrl }}" target="_blank" rel="noopener">🌐 打开原始页面</a>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-info">
+      <div style="padding:24px">
+        <table style="width:100%;font-size:14px;line-height:2">
+          <tr><td style="color:var(--tl);width:100px;font-weight:600">标题</td><td>{{ resource.title }}</td></tr>
+          <tr><td style="color:var(--tl);font-weight:600">分类</td><td>{{ resource.category|cat_name }}</td></tr>
+          {% if resource.source %}<tr><td style="color:var(--tl);font-weight:600">来源</td><td>{{ resource.source }}</td></tr>{% endif %}
+          {% if resource.publishTime %}<tr><td style="color:var(--tl);font-weight:600">发布时间</td><td>{{ resource.publishTime }}</td></tr>{% endif %}
+          {% if resource.authority %}<tr><td style="color:var(--tl);font-weight:600">权威等级</td><td>{{ '政府官方' if resource.authority == 'official' else ('科研机构' if resource.authority == 'professional' else '一般来源') }}</td></tr>{% endif %}
+          {% if resource.sourceUrl %}<tr><td style="color:var(--tl);font-weight:600">原始链接</td><td><a href="{{ resource.sourceUrl }}" target="_blank" style="color:var(--gd);word-break:break-all">{{ resource.sourceUrl }}</a></td></tr>{% endif %}
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 
   {% if related %}
   <div class="related">
@@ -121,25 +145,33 @@
 <script>
 let collected={{ 'true' if is_collected else 'false' }};
 function toggleCollect(rid){fetch('/api/collect/toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({resourceId:rid})}).then(r=>r.json()).then(d=>{if(d.code===-1){showLogin();return}collected=d.data.isCollected;document.getElementById('collectEmoji').textContent=collected?'⭐':'☆';document.getElementById('collectText').textContent=collected?'已收藏':'收藏';document.getElementById('collectBtn').classList.toggle('collected',collected);showToast(d.message)})}
-function copyLink(url){navigator.clipboard.writeText(url).then(()=>showToast('链接已复制')).catch(()=>showToast('复制失败'))}
 
-// 如果页面加载时没有正文，异步获取
-{% if not resource.content and resource.sourceUrl %}
+function switchTab(el,tab){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+tab).classList.add('active')}
+
+// 检测 iframe 是否加载失败（X-Frame-Options 阻止）
+{% if resource.sourceUrl %}
 (function(){
-  const area=document.getElementById('contentArea');
-  if(!area)return;
-  fetch('/api/fetch-content?url={{ resource.sourceUrl|urlencode }}')
-    .then(r=>r.json())
-    .then(d=>{
-      if(d.code===0 && d.data && d.data.content){
-        area.innerHTML=d.data.content;
-      } else {
-        area.innerHTML='<p style="color:var(--tl);text-align:center;padding:20px">暂无全文内容，请点击「查看原文」访问原始页面</p>';
+  const frame=document.getElementById('contentFrame');
+  if(!frame)return;
+  let loaded=false;
+  frame.onload=function(){loaded=true};
+  // 3秒后检查：如果 iframe 内容为空或被阻止，显示 fallback
+  setTimeout(function(){
+    try{
+      // 尝试访问 iframe 内容，如果跨域会抛错
+      const doc=frame.contentDocument||frame.contentWindow.document;
+      if(!doc||!doc.body||doc.body.innerHTML.length<50){
+        document.getElementById('iframeWrap').style.display='none';
+        document.getElementById('iframeFallback').style.display='block';
       }
-    })
-    .catch(()=>{
-      area.innerHTML='<p style="color:var(--tl);text-align:center;padding:20px">全文加载失败，请点击「查看原文」访问原始页面</p>';
-    });
+    }catch(e){
+      // 跨域 = iframe 正常加载了外部页面，这是好的
+      if(!loaded){
+        document.getElementById('iframeWrap').style.display='none';
+        document.getElementById('iframeFallback').style.display='block';
+      }
+    }
+  },5000);
 })();
 {% endif %}
 </script>
