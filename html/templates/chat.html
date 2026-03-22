@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% set active_tab = 'chat' %}
+{% block title %}智能助手{% endblock %}
+{% block extra_style %}
+.chat-page{display:flex;flex-direction:column;height:calc(100vh - 64px);max-width:900px;margin:0 auto;padding:0}
+.chat-header{padding:20px 24px 16px;text-align:center;border-bottom:1px solid #eee;background:var(--w)}
+.chat-header h2{font-size:22px;color:var(--gd);margin-bottom:4px;letter-spacing:2px}
+.chat-header p{font-size:13px;color:var(--tlr)}
+.chat-avatar-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px}
+.chat-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gd),var(--gl));display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 16px rgba(46,125,50,.2)}
+.chat-body{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px;background:#f5f7f0}
+.msg{display:flex;gap:10px;max-width:85%;animation:fadeIn .3s ease}
+.msg-bot{align-self:flex-start}
+.msg-user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.msg-bot .msg-avatar{background:linear-gradient(135deg,var(--gd),var(--gl));color:#fff}
+.msg-user .msg-avatar{background:linear-gradient(135deg,#FFB74D,#FFA726);color:#fff}
+.msg-bubble{padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.8;letter-spacing:.3px;word-break:break-word;white-space:pre-wrap}
+.msg-bot .msg-bubble{background:var(--w);border-top-left-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.msg-user .msg-bubble{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-top-right-radius:4px;box-shadow:0 2px 8px rgba(46,125,50,.2)}
+.msg-time{font-size:11px;color:var(--tlr);margin-top:4px;padding:0 46px}
+.msg-user .msg-time{text-align:right}
+.typing-dots{display:flex;gap:4px;padding:4px 0}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--gl);animation:bounce .6s infinite alternate}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+.chat-footer{padding:16px 24px;background:var(--w);border-top:1px solid #eee}
+.chat-input-row{display:flex;gap:10px;align-items:flex-end}
+.chat-input{flex:1;padding:12px 16px;border:2px solid #e0e0e0;border-radius:20px;font-size:15px;outline:none;resize:none;max-height:120px;min-height:44px;font-family:'Noto Serif SC',serif;transition:border .2s;line-height:1.5}
+.chat-input:focus{border-color:var(--gd)}
+.chat-send{width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;font-size:18px;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(46,125,50,.3);flex-shrink:0}
+.chat-send:hover{box-shadow:0 6px 20px rgba(46,125,50,.4);transform:translateY(-1px)}
+.chat-send:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.chat-actions{display:flex;gap:8px;margin-top:8px;justify-content:space-between;align-items:center}
+.chat-actions .left{display:flex;gap:8px}
+.quick-q{padding:6px 14px;border-radius:16px;border:1px solid #ddd;background:var(--w);font-size:12px;cursor:pointer;transition:all .2s;font-family:'Noto Serif SC',serif;color:var(--tl)}
+.quick-q:hover{border-color:var(--gd);color:var(--gd);background:var(--gbg)}
+.clear-btn{padding:6px 14px;border-radius:16px;border:1px solid #ddd;background:var(--w);font-size:12px;cursor:pointer;transition:all .2s;font-family:'Noto Serif SC',serif;color:var(--tlr)}
+.clear-btn:hover{border-color:#e53935;color:#e53935}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.chat-page{height:calc(100vh - 68px)}.msg{max-width:92%}.chat-footer{padding:12px 16px}.chat-body{padding:16px}}
+{% endblock %}
+
+{% block content %}
+<div class="chat-page">
+  <div class="chat-header">
+    <div class="chat-avatar-row">
+      <div class="chat-avatar">🌾</div>
+    </div>
+    <h2>耒阳方言农业智能助手</h2>
+    <p>基于大语言模型微调 · 融合耒阳方言与本地涉农政策</p>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg msg-bot">
+      <div class="msg-avatar">🌾</div>
+      <div class="msg-bubble">你好！我是农智汇·耒阳方言农业智能助手 👋
+
+我经过耒阳方言语料和本地涉农政策数据的微调训练，可以帮你：
+
+🌱 解答农业种植技术问题
+📋 查询耒阳最新惠农政策
+🫒 油茶种植与加工指导
+💰 农业补贴和贷款贴息咨询
+🗣️ 用耒阳方言和你聊天
+
+有么子要问的，尽管讲！</div>
+    </div>
+  </div>
+  <div class="chat-footer">
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chatInput" placeholder="输入你的问题..." rows="1" onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" id="sendBtn" onclick="sendMessage()">➤</button>
+    </div>
+    <div class="chat-actions">
+      <div class="left">
+        <button class="quick-q" onclick="quickAsk('耒阳油茶补贴政策有哪些')">🫒 油茶补贴</button>
+        <button class="quick-q" onclick="quickAsk('耒阳方言里怎么说种田')">🗣️ 方言问答</button>
+        <button class="quick-q" onclick="quickAsk('2026年有什么新的农业政策')">📋 最新政策</button>
+      </div>
+      <button class="clear-btn" onclick="clearChat()">🗑️ 清除对话</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+let sessionId = 'web_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+let sending = false;
+
+function getTime() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function addMessage(content, isUser) {
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'msg ' + (isUser ? 'msg-user' : 'msg-bot');
+  msgDiv.innerHTML = `
+    <div class="msg-avatar">${isUser ? '👤' : '🌾'}</div>
+    <div class="msg-bubble">${escapeHtml(content)}</div>
+  `;
+  chatBody.appendChild(msgDiv);
+  const timeDiv = document.createElement('div');
+  timeDiv.className = 'msg-time' + (isUser ? ' msg-user' : '');
+  timeDiv.textContent = getTime();
+  chatBody.appendChild(timeDiv);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function addTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg msg-bot';
+  div.id = 'typingMsg';
+  div.innerHTML = `
+    <div class="msg-avatar">🌾</div>
+    <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+  `;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById('typingMsg');
+  if (el) el.remove();
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+async function sendMessage() {
+  const msg = chatInput.value.trim();
+  if (!msg || sending) return;
+  sending = true;
+  sendBtn.disabled = true;
+  chatInput.value = '';
+  chatInput.style.height = 'auto';
+  addMessage(msg, true);
+  addTyping();
+
+  try {
+    const resp = await fetch('/api/chat/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg, sessionId })
+    });
+    const data = await resp.json();
+    removeTyping();
+    if (data.data && data.data.reply) {
+      addMessage(data.data.reply, false);
+      if (data.data.sessionId) sessionId = data.data.sessionId;
+    } else {
+      addMessage('抱歉，暂时无法回答，请稍后再试。', false);
+    }
+  } catch (e) {
+    removeTyping();
+    addMessage('网络连接出现问题，请稍后再试。', false);
+  }
+  sending = false;
+  sendBtn.disabled = false;
+  chatInput.focus();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function quickAsk(q) {
+  chatInput.value = q;
+  sendMessage();
+}
+
+async function clearChat() {
+  if (!confirm('确定清除所有对话记录？')) return;
+  try {
+    await fetch('/api/chat/clear', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId })
+    });
+  } catch(e) {}
+  sessionId = 'web_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+  chatBody.innerHTML = '';
+  addMessage('对话已清除，有么子要问的，尽管讲！', false);
+}
+
+// 自动调整输入框高度
+chatInput.addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+</script>
+{% endblock %}

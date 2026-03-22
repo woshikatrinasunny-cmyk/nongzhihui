@@ -43,6 +43,10 @@ Page({
     wx.navigateTo({ url: '/pages/search/search' });
   },
 
+  goToChat() {
+    wx.navigateTo({ url: '/pages/chat/chat' });
+  },
+
   navigateTo(e) {
     const { istab, category } = e.currentTarget.dataset;
     if (istab && category) {
@@ -60,5 +64,23 @@ Page({
   viewMore(e) {
     const type = e.currentTarget.dataset.type;
     wx.navigateTo({ url: `/pages/category/category?type=${type}` });
+  },
+
+  // 分享给好友
+  onShareAppMessage() {
+    return {
+      title: '农智汇 - 涉农知识聚合平台',
+      path: '/pages/index/index',
+      imageUrl: '' // 可以设置分享图片
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '农智汇 - 涉农知识聚合平台',
+      query: '',
+      imageUrl: '' // 可以设置分享图片
+    };
   }
 });

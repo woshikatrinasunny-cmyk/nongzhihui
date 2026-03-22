@@ -271,6 +271,10 @@ def feedback_page():
 def about_page():
     return render_template('about.html')
 
+@app.route('/chat')
+def chat_page():
+    return render_template('chat.html')
+
 # ============ API 路由（代理到 Node 后端） ============
 @app.route('/api/search')
 def api_search():
@@ -386,6 +390,23 @@ def api_history_clear():
     history_store[uid] = []
     api_post('/api/history/clear', {'userId': uid})  # 也通知后端
     return jsonify(code=0, message='已清空')
+
+@app.route('/api/chat/send', methods=['POST'])
+def api_chat_send():
+    data = request.get_json() or {}
+    message = data.get('message', '').strip()
+    session_id = data.get('sessionId', '')
+    if not message:
+        return jsonify(code=-1, message='请输入消息')
+    resp = api_post('/api/chat/send', {'message': message, 'sessionId': session_id}, timeout=60)
+    return jsonify(resp)
+
+@app.route('/api/chat/clear', methods=['POST'])
+def api_chat_clear():
+    data = request.get_json() or {}
+    session_id = data.get('sessionId', '')
+    resp = api_post('/api/chat/clear', {'sessionId': session_id})
+    return jsonify(resp)
 
 # ============ 模板过滤器 ============
 @app.template_filter('cat_name')

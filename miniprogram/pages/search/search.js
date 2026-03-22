@@ -155,5 +155,25 @@ Page({
   },
   onFilterClose: function() {
     this.setData({ showFilter: false });
+  },
+
+  // 分享给好友
+  onShareAppMessage: function() {
+    var keyword = this.data.keyword;
+    return {
+      title: keyword ? '搜索：' + keyword + ' - 农智汇' : '农智汇 - 涉农知识搜索',
+      path: keyword ? '/pages/search/search?keyword=' + encodeURIComponent(keyword) : '/pages/search/search',
+      imageUrl: ''
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline: function() {
+    var keyword = this.data.keyword;
+    return {
+      title: keyword ? '搜索：' + keyword + ' - 农智汇' : '农智汇 - 涉农知识搜索',
+      query: keyword ? 'keyword=' + encodeURIComponent(keyword) : '',
+      imageUrl: ''
+    };
   }
 });

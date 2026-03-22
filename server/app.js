@@ -42,6 +42,9 @@ app.use('/api/history', require('./routes/history'));
 app.use('/api/feedback', require('./routes/feedback'));
 app.use('/api/statistics', require('./routes/statistics'));
 
+// 智能体对话路由
+app.use('/api/chat', require('./routes/chat'));
+
 // 爬虫管理路由
 app.use('/api/crawler', require('./routes/crawler'));
 

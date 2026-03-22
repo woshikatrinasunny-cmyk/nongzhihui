@@ -288,3 +288,53 @@ page {
   font-size: 24rpx;
   color: #ccc;
 }
+
+/* 智能助手入口 */
+.ai-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  border-radius: 24rpx;
+  padding: 24rpx 28rpx;
+  margin: 0 0 32rpx 0;
+  box-shadow: 0 4rpx 16rpx rgba(46,125,50,0.1);
+}
+.ai-entry:active {
+  opacity: 0.85;
+}
+.ai-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.ai-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2E7D32, #66BB6A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  box-shadow: 0 4rpx 12rpx rgba(46,125,50,0.2);
+}
+.ai-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.ai-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1B5E20;
+}
+.ai-desc {
+  font-size: 22rpx;
+  color: #388E3C;
+}
+.ai-arrow {
+  font-size: 36rpx;
+  color: #2E7D32;
+  font-weight: 700;
+}

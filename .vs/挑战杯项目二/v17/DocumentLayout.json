@@ -1,0 +1,326 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\services\\filter.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\services\\filter.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\Feedback.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\models\\Feedback.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\Favorite.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\models\\Favorite.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\CrawlLog.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\models\\CrawlLog.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\project.private.config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:miniprogram\\project.private.config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\project.config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:miniprogram\\project.config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:miniprogram\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\services\\aggregator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\services\\aggregator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-search.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\test-search.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-search-direct.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\test-search-direct.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-api.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\test-api.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-aggregator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\test-aggregator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\scheduler.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\scheduler.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\create-index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\create-index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:miniprogram\\app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.wxss||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:miniprogram\\app.wxss||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\html\\app.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:html\\app.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "filter.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\services\\filter.js",
+              "RelativeDocumentMoniker": "server\\services\\filter.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\services\\filter.js",
+              "RelativeToolTip": "server\\services\\filter.js",
+              "ViewState": "AgIAADEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:14:13.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Feedback.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\Feedback.js",
+              "RelativeDocumentMoniker": "server\\models\\Feedback.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\Feedback.js",
+              "RelativeToolTip": "server\\models\\Feedback.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:14:11.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Favorite.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\Favorite.js",
+              "RelativeDocumentMoniker": "server\\models\\Favorite.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\Favorite.js",
+              "RelativeToolTip": "server\\models\\Favorite.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:14:09.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CrawlLog.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\CrawlLog.js",
+              "RelativeDocumentMoniker": "server\\models\\CrawlLog.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\models\\CrawlLog.js",
+              "RelativeToolTip": "server\\models\\CrawlLog.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:14:08.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "project.private.config.json",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\project.private.config.json",
+              "RelativeDocumentMoniker": "miniprogram\\project.private.config.json",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\project.private.config.json",
+              "RelativeToolTip": "miniprogram\\project.private.config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-01T12:14:02.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "project.config.json",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\project.config.json",
+              "RelativeDocumentMoniker": "miniprogram\\project.config.json",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\project.config.json",
+              "RelativeToolTip": "miniprogram\\project.config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-01T12:14:01.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "app.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.js",
+              "RelativeDocumentMoniker": "miniprogram\\app.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.js",
+              "RelativeToolTip": "miniprogram\\app.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:14:00.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "aggregator.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\services\\aggregator.js",
+              "RelativeDocumentMoniker": "server\\services\\aggregator.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\services\\aggregator.js",
+              "RelativeToolTip": "server\\services\\aggregator.js",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:13:20.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "test-search.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-search.js",
+              "RelativeDocumentMoniker": "server\\test-search.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-search.js",
+              "RelativeToolTip": "server\\test-search.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:13:15.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "test-search-direct.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-search-direct.js",
+              "RelativeDocumentMoniker": "server\\test-search-direct.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-search-direct.js",
+              "RelativeToolTip": "server\\test-search-direct.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:13:14.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "test-api.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-api.js",
+              "RelativeDocumentMoniker": "server\\test-api.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-api.js",
+              "RelativeToolTip": "server\\test-api.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:13:12.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "scheduler.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\scheduler.js",
+              "RelativeDocumentMoniker": "server\\scheduler.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\scheduler.js",
+              "RelativeToolTip": "server\\scheduler.js",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:13:04.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "test-aggregator.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-aggregator.js",
+              "RelativeDocumentMoniker": "server\\test-aggregator.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\test-aggregator.js",
+              "RelativeToolTip": "server\\test-aggregator.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:13:03.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "create-index.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\create-index.js",
+              "RelativeDocumentMoniker": "server\\create-index.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\create-index.js",
+              "RelativeToolTip": "server\\create-index.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:12:53.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "app.js",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\app.js",
+              "RelativeDocumentMoniker": "server\\app.js",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\server\\app.js",
+              "RelativeToolTip": "server\\app.js",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-01T12:12:43.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "app.json",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.json",
+              "RelativeDocumentMoniker": "miniprogram\\app.json",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.json",
+              "RelativeToolTip": "miniprogram\\app.json",
+              "ViewState": "AgIAABgAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-01T12:12:36.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "app.wxss",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.wxss",
+              "RelativeDocumentMoniker": "miniprogram\\app.wxss",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\miniprogram\\app.wxss",
+              "RelativeToolTip": "miniprogram\\app.wxss",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-01T12:12:33.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "app.py",
+              "DocumentMoniker": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\html\\app.py",
+              "RelativeDocumentMoniker": "html\\app.py",
+              "ToolTip": "D:\\\u6311\u6218\u676F\u9879\u76EE\u4E8C\\html\\app.py",
+              "RelativeToolTip": "html\\app.py",
+              "ViewState": "AgIAAFMBAAAAAAAAAADwv58AAAAgAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMtSURBVDhPrZS9T1tnFMZ/1/cLGxy7BNuJIeCG2hIiSSWqRmmR8Fh16lhVVVTRIR34Ezo2kSqUqUJeKkHLEqlDWZAyUJZEoUNaoTatXEgsQykGFFyw8de997337RA5MeYqUx/pDOc55zx6znmlF/5PSCmVzjybzX4/NTV1U9f1TvoUKpWKrFard5aXl\u002B/u7e1Vu\u002BtaNzE9PU0ikeimX2J1dVUWi8UvVFWVKysr3xQKhXJn/YwgQKFQ6KZQVZVUKoWu64FsNhtNp9O3LMsKapo2u7Gxcdju8xVMJpPdFIry6jqGYeiTk5MDuq5/IqW0hBBfFwqFOkCgc6gNwzDORPuuqqqytLTE3Nycura2diEUCk2Yphlvz/o63Nzc7KbQNI10Os27N95n4vp7aAGFZv3Emp\u002Bf//tUX2fSxtjYWDdFzRL8lD9kv9qk2bTRA3AxrGoXh4b7A4FXi/oK\u002Bjm0\u002BpI8269xUKnz\u002BOk\u002BwrGJ9Rn6R\u002BNDI/F4vK/d53vDVCp1JioNwaONPfI7ZTzh4AmXaq2hNEQgGA6HQ\u002B1ZX0EA13VxUfjrucO9xwf8tl3m2qUoE6l\u002BzvfqCOEghCAWrV9d\u002Bu7mz17zjyee5w37rry1tQXAbkvnxycn7JZPEMLGdRyE4\u002BA6Np7r4CkKhvIcmuvQWh8n9uWsr8NMJkMmk6Ehezg4riGEg\u002BcINDwiQY1ISCca0nk7FeJasgpuE6x/wN75wNdhPp8HYGe3iWXZeEIw3K8xk20SVI\u002BR0gPpETWOGAwegGi8EHWPI691ODKYwAiAEA63sgbvXPiV8dgzrsQLXBnIM9RbRBH/gqiBWwc9eeQraNs2tm0z8obJ5YEgYVMlds5DkS54NggLPA9cQAZA6tBz1cUY/NZ35VKpBIAJfJ69TMWCRGQLWja4LVAioARBV8DMHGG\u002B\u002BSc9bz1dXFyc9RUcHR09lSuKgumVJLW6gtsC9xB6b4BUQD2/88P93a8ePLj3KJfLNc4ILiwsvPwIOvHZpx9uXzIHU9i/v3iAk1\u002BQfdelG5woP3x4u5jL5RrdM6\u002BFlPKc9Jy7srW9J2vrnrRK21LK\u002B1LKj2dmZlLtvv8AoKdgTW7XN1wAAAAASUVORK5CYII=",
+              "WhenOpened": "2026-03-01T12:11:50.451Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -70,5 +70,25 @@ Page({
     this.setData({ page: 1, resourceList: [] });
     this.loadResources();
     wx.stopPullDownRefresh();
+  },
+
+  // 分享给好友
+  onShareAppMessage() {
+    const category = this.data.categories.find(c => c.id === this.data.currentCategory);
+    return {
+      title: (category ? category.name : '分类浏览') + ' - 农智汇',
+      path: `/pages/category/category?type=${this.data.currentCategory}`,
+      imageUrl: ''
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    const category = this.data.categories.find(c => c.id === this.data.currentCategory);
+    return {
+      title: (category ? category.name : '分类浏览') + ' - 农智汇',
+      query: `type=${this.data.currentCategory}`,
+      imageUrl: ''
+    };
   }
 });

@@ -63,6 +63,18 @@
       </van-grid>
     </view>
 
+    <!-- 智能助手入口 -->
+    <view class="ai-entry" bindtap="goToChat">
+      <view class="ai-entry-left">
+        <view class="ai-avatar">🌾</view>
+        <view class="ai-info">
+          <text class="ai-title">耒阳方言农业智能助手</text>
+          <text class="ai-desc">方言问答 · 政策咨询 · 农技指导</text>
+        </view>
+      </view>
+      <text class="ai-arrow">›</text>
+    </view>
+
     <!-- 热门资源 -->
     <view class="section">
       <view class="section-title-wrapper">

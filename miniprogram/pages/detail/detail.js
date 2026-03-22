@@ -52,7 +52,17 @@ Page({
   onShareAppMessage() {
     return {
       title: this.data.resource?.title || '农智汇资源',
-      path: `/pages/detail/detail?id=${this.data.resourceId}`
+      path: `/pages/detail/detail?id=${this.data.resourceId}`,
+      imageUrl: '' // 可以设置分享图片
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: this.data.resource?.title || '农智汇资源',
+      query: `id=${this.data.resourceId}`,
+      imageUrl: '' // 可以设置分享图片
     };
   },
 

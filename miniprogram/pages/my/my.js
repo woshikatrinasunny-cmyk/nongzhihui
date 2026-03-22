@@ -16,5 +16,23 @@ Page({
         console.error('跳转失败:', err);
       }
     });
+  },
+
+  // 分享给好友
+  onShareAppMessage() {
+    return {
+      title: '农智汇 - 涉农知识聚合平台',
+      path: '/pages/index/index',
+      imageUrl: ''
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '农智汇 - 涉农知识聚合平台',
+      query: '',
+      imageUrl: ''
+    };
   }
 });

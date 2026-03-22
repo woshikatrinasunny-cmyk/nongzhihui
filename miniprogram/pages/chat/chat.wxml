@@ -1,0 +1,48 @@
+<view class="chat-page">
+  <!-- 消息列表 -->
+  <scroll-view class="chat-body" scroll-y scroll-into-view="{{scrollToId}}" scroll-with-animation>
+    <view class="msg msg-bot" wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <view class="msg-row {{item.isUser ? 'msg-user-row' : 'msg-bot-row'}}">
+        <view class="msg-avatar">{{item.isUser ? '👤' : '🌾'}}</view>
+        <view class="msg-bubble {{item.isUser ? 'bubble-user' : 'bubble-bot'}}">
+          <text>{{item.content}}</text>
+        </view>
+      </view>
+      <view class="msg-time {{item.isUser ? 'time-right' : 'time-left'}}">{{item.time}}</view>
+    </view>
+    <!-- 加载中 -->
+    <view class="msg msg-bot" wx:if="{{loading}}">
+      <view class="msg-row msg-bot-row">
+        <view class="msg-avatar">🌾</view>
+        <view class="msg-bubble bubble-bot">
+          <text class="thinking-text">{{thinkingText}}</text>
+          <view class="typing-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view style="height:20rpx"></view>
+  </scroll-view>
+
+  <!-- 快捷问题 -->
+  <view class="quick-bar" wx:if="{{messages.length <= 1}}">
+    <view class="quick-item" bindtap="quickAsk" data-q="耒阳油茶补贴政策有哪些">🫒 油茶补贴</view>
+    <view class="quick-item" bindtap="quickAsk" data-q="耒阳方言里怎么说种田">🗣️ 方言问答</view>
+    <view class="quick-item" bindtap="quickAsk" data-q="2026年有什么新的农业政策">📋 最新政策</view>
+    <view class="quick-item" bindtap="quickAsk" data-q="家庭农场怎么申请贷款贴息">💰 贷款贴息</view>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="chat-footer">
+    <view class="input-row">
+      <input class="chat-input" value="{{inputValue}}" bindinput="onInput" placeholder="输入你的问题..." confirm-type="send" bindconfirm="sendMessage" disabled="{{loading}}" />
+      <view class="send-btn {{inputValue && !loading ? 'active' : ''}}" bindtap="sendMessage">➤</view>
+    </view>
+    <view class="footer-actions">
+      <view class="action-btn" bindtap="clearChat">🗑️ 清除对话</view>
+    </view>
+  </view>
+</view>
