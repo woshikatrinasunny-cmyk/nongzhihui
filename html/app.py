@@ -18,6 +18,16 @@ app.secret_key = os.environ.get('SECRET_KEY', 'nongzhihui-secret-2026')
 
 # Node.js 后端地址（部署时通过环境变量 API_BASE 设置）
 API_BASE = os.environ.get('API_BASE', 'http://localhost:3000')
+# 模块加载时自动检测：若未设置 API_BASE 且本地 3000 端口不通，自动切换到 Render 后端
+# 注意：必须在模块级别执行，gunicorn 不会走 __main__ 块
+if API_BASE == 'http://localhost:3000':
+    import socket as _socket
+    try:
+        _s = _socket.create_connection(('localhost', 3000), timeout=2)
+        _s.close()
+    except Exception:
+        API_BASE = 'https://nongzhihui-api.onrender.com'
+        print(f'[启动] 本地后端不可达，自动切换到 Render 后端: {API_BASE}')
 
 # ============ 数据清洗 ============
 # 网页爬取数据中常见的垃圾文本
@@ -398,7 +408,7 @@ def api_chat_send():
     session_id = data.get('sessionId', '')
     if not message:
         return jsonify(code=-1, message='请输入消息')
-    resp = api_post('/api/chat/send', {'message': message, 'sessionId': session_id}, timeout=60)
+    resp = api_post('/api/chat/send', {'message': message, 'sessionId': session_id}, timeout=90)
     return jsonify(resp)
 
 @app.route('/api/chat/clear', methods=['POST'])
@@ -423,6 +433,14 @@ def inject_globals():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
+    # 本地开发时如果没有设置 API_BASE，自动使用 Render 后端
+    if API_BASE == 'http://localhost:3000':
+        import socket
+        try:
+            s = socket.create_connection(('localhost', 3000), timeout=2)
+            s.close()
+        except:
+            API_BASE = 'https://nongzhihui-api.onrender.com'
+            print(f'本地后端未启动，自动切换到 Render 后端: {API_BASE}')
     print(f'Flask Web 前端启动，后端地址: {API_BASE}')
-    print('请确保 Node.js 后端已启动: cd server && node app.js')
     app.run(debug=True, host='0.0.0.0', port=port)

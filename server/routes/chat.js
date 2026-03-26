@@ -146,10 +146,14 @@ router.post('/send', async (req, res) => {
         }
       });
     } else {
-      console.error('千问API返回异常:', JSON.stringify(result).substring(0, 500));
+      const errDetail = JSON.stringify(result);
+      console.error('千问API返回异常:', errDetail);
+      // 提取千问API的错误信息（如 invalid_api_key 等）
+      const apiErrMsg = result.error ? `[${result.error.code}] ${result.error.message}` : errDetail.substring(0, 200);
       res.json({
         code: -1,
         message: '智能体暂时无法回答，请稍后再试',
+        debug: apiErrMsg,
         data: { reply: '抱歉，我暂时无法回答，请稍后再试。', sessionId: sid }
       });
     }
