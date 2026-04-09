@@ -45,6 +45,9 @@ app.use('/api/statistics', require('./routes/statistics'));
 // 智能体对话路由
 app.use('/api/chat', require('./routes/chat'));
 
+// 志愿服务路由
+app.use('/api/volunteer', require('./routes/volunteer'));
+
 // 爬虫管理路由
 app.use('/api/crawler', require('./routes/crawler'));
 
