@@ -285,6 +285,10 @@ def about_page():
 def chat_page():
     return render_template('chat.html')
 
+@app.route('/volunteer')
+def volunteer_page():
+    return render_template('volunteer.html')
+
 # ============ API 路由（代理到 Node 后端） ============
 @app.route('/api/search')
 def api_search():
@@ -416,6 +420,28 @@ def api_chat_clear():
     data = request.get_json() or {}
     session_id = data.get('sessionId', '')
     resp = api_post('/api/chat/clear', {'sessionId': session_id})
+    return jsonify(resp)
+
+# ============ 志愿服务 API ============
+@app.route('/api/volunteer/consult', methods=['POST'])
+def api_volunteer_consult():
+    data = request.get_json() or {}
+    resp = api_post('/api/volunteer/consult', data)
+    return jsonify(resp)
+
+@app.route('/api/volunteer/my-consults')
+def api_my_consults():
+    resp = api_get('/api/volunteer/my-consults')
+    return jsonify(resp)
+
+@app.route('/api/volunteer/pending-consults')
+def api_pending_consults():
+    resp = api_get('/api/volunteer/pending-consults')
+    return jsonify(resp)
+
+@app.route('/api/volunteer/resolved-cases')
+def api_resolved_cases():
+    resp = api_get('/api/volunteer/resolved-cases')
     return jsonify(resp)
 
 # ============ 模板过滤器 ============

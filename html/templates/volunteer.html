@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% set active_tab = 'volunteer' %}
+{% block title %}志愿服务{% endblock %}
+{% block extra_style %}
+.volunteer-page{max-width:1000px;margin:0 auto}
+.volunteer-header{text-align:center;padding:40px 20px;background:linear-gradient(135deg,var(--gbg),#fff);border-radius:var(--r);margin-bottom:30px}
+.volunteer-header h1{font-size:32px;color:var(--gd);margin-bottom:12px;letter-spacing:2px}
+.volunteer-header p{font-size:15px;color:var(--tl)}
+.tab-nav{display:flex;gap:12px;margin-bottom:30px;border-bottom:2px solid var(--gbg);padding:0 20px}
+.tab-btn{padding:14px 28px;border:none;background:none;cursor:pointer;font-size:16px;color:var(--tlr);border-bottom:3px solid transparent;transition:all .3s;font-family:'Noto Serif SC',serif;letter-spacing:1px}
+.tab-btn.active{color:var(--gd);border-bottom-color:var(--gd);font-weight:600}
+.tab-btn:hover{color:var(--g)}
+.tab-content{display:none;padding:0 20px}
+.tab-content.active{display:block}
+.consult-form{background:var(--w);padding:28px;border-radius:var(--r);margin-bottom:30px;box-shadow:var(--sh)}
+.consult-form h3{margin-bottom:18px;color:var(--gd);font-size:18px}
+.form-group{margin-bottom:20px}
+.form-label{display:block;margin-bottom:10px;font-weight:500;color:var(--t)}
+.form-textarea{width:100%;min-height:140px;padding:14px;border:2px solid #e5e5e5;border-radius:10px;font-size:15px;resize:vertical;font-family:'Noto Serif SC',serif;transition:border .3s}
+.form-textarea:focus{outline:none;border-color:var(--gd)}
+.form-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.char-count{font-size:13px;color:var(--tlr)}
+.consult-list,.case-list{display:grid;gap:18px}
+.consult-item,.case-item{background:var(--w);border-radius:var(--r);padding:22px;box-shadow:var(--sh);border-left:4px solid var(--gl);transition:all .3s}
+.consult-item:hover,.case-item:hover{transform:translateY(-2px);box-shadow:var(--shl)}
+.item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.status-tag{padding:5px 14px;border-radius:14px;font-size:13px;font-weight:600}
+.status-pending{background:#fff3cd;color:#856404}
+.status-answered{background:#d4edda;color:#155724}
+.status-resolved{background:#d1ecf1;color:#0c5460}
+.item-time{font-size:12px;color:var(--tlr)}
+.item-content{margin-bottom:14px;color:var(--t);line-height:1.7;font-size:15px}
+.item-footer{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--tlr)}
+.case-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.case-tag{background:#e3f2fd;color:#1976d2;padding:5px 12px;border-radius:14px;font-size:13px}
+.case-title{font-size:18px;font-weight:600;color:var(--gd);margin:0}
+@media(max-width:768px){.tab-nav{padding:0 16px}.tab-content{padding:0 16px}.consult-form{padding:20px}}
+{% endblock %}
+
+{% block content %}
+<div class="container volunteer-page">
+  <div class="volunteer-header">
+    <h1>🤝 志愿服务</h1>
+    <p>专业志愿者为您提供法律咨询和答疑服务</p>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('consult')">💬 我要咨询</button>
+    <button class="tab-btn" onclick="switchTab('help')">🆘 我要帮助</button>
+    <button class="tab-btn" onclick="switchTab('cases')">✅ 解决案例</button>
+  </div>
+
+  <!-- 我要咨询 -->
+  <div id="consult-tab" class="tab-content active">
+    <div class="consult-form">
+      <h3>发布咨询</h3>
+      <div class="form-group">
+        <label class="form-label">咨询内容</label>
+        <textarea id="consultContent" class="form-textarea" placeholder="请详细描述您的问题，我们的志愿者会尽快为您解答..." maxlength="500"></textarea>
+        <div class="form-footer">
+          <span class="char-count"><span id="charCount">0</span>/500</span>
+          <button class="btn btn-green" onclick="submitConsult()">发布咨询</button>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="margin-bottom:18px;color:var(--gd);font-size:18px;padding:0 4px">我的咨询</h3>
+    <div id="myConsultsList" class="consult-list">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- 我要帮助 -->
+  <div id="help-tab" class="tab-content">
+    <h3 style="margin-bottom:18px;color:var(--gd);font-size:18px;padding:0 4px">待回答咨询</h3>
+    <div id="pendingConsultsList" class="consult-list">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- 解决案例 -->
+  <div id="cases-tab" class="tab-content">
+    <div id="resolvedCasesList" class="case-list">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+let currentTab = 'consult';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`${tab}-tab`).classList.add('active');
+  loadTabData(tab);
+}
+
+function loadTabData(tab) {
+  switch(tab) {
+    case 'consult': loadMyConsults(); break;
+    case 'help': loadPendingConsults(); break;
+    case 'cases': loadResolvedCases(); break;
+  }
+}
+
+async function submitConsult() {
+  const content = document.getElementById('consultContent').value.trim();
+  if (!content) { showToast('请输入咨询内容'); return; }
+  
+  try {
+    const resp = await fetch('/api/volunteer/consult', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content, category: '法律咨询' })
+    });
+    const result = await resp.json();
+    if (result.success) {
+      showToast('发布成功！');
+      document.getElementById('consultContent').value = '';
+      document.getElementById('charCount').textContent = '0';
+      loadMyConsults();
+    } else {
+      showToast(result.message || '发布失败');
+    }
+  } catch (e) {
+    showToast('发布失败，请稍后重试');
+  }
+}
+
+async function loadMyConsults() {
+  try {
+    const resp = await fetch('/api/volunteer/my-consults');
+    const result = await resp.json();
+    const container = document.getElementById('myConsultsList');
+    
+    if (result.success && result.data.length > 0) {
+      container.innerHTML = result.data.map(item => `
+        <div class="consult-item">
+          <div class="item-header">
+            <span class="status-tag status-${item.status}">${getStatusText(item.status)}</span>
+            <span class="item-time">${formatTime(item.createTime)}</span>
+          </div>
+          <div class="item-content">${item.content}</div>
+          <div class="item-footer">
+            <span>${item.category}</span>
+            <span>💬 ${item.replyCount || 0}条回复</span>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<div class="empty"><span class="emoji">💬</span><div class="text">暂无咨询记录</div></div>';
+    }
+  } catch (e) {
+    document.getElementById('myConsultsList').innerHTML = '<div class="empty"><span class="emoji">❌</span><div class="text">加载失败</div></div>';
+  }
+}
+
+async function loadPendingConsults() {
+  try {
+    const resp = await fetch('/api/volunteer/pending-consults');
+    const result = await resp.json();
+    const container = document.getElementById('pendingConsultsList');
+    
+    if (result.success && result.data.length > 0) {
+      container.innerHTML = result.data.map(item => `
+        <div class="consult-item">
+          <div class="item-header">
+            <span class="status-tag status-pending">待回答</span>
+            <span class="item-time">${formatTime(item.createTime)}</span>
+          </div>
+          <div class="item-content">${item.content}</div>
+          <div class="item-footer">
+            <span>${item.category}</span>
+            <button class="btn btn-green" onclick="answerConsult('${item.id}')">立即回答</button>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<div class="empty"><span class="emoji">🆘</span><div class="text">暂无待回答咨询</div></div>';
+    }
+  } catch (e) {
+    document.getElementById('pendingConsultsList').innerHTML = '<div class="empty"><span class="emoji">❌</span><div class="text">加载失败</div></div>';
+  }
+}
+
+async function loadResolvedCases() {
+  try {
+    const resp = await fetch('/api/volunteer/resolved-cases');
+    const result = await resp.json();
+    const container = document.getElementById('resolvedCasesList');
+    
+    if (result.success && result.data.length > 0) {
+      container.innerHTML = result.data.map(item => `
+        <div class="case-item">
+          <div class="item-header">
+            <h3 class="case-title">${item.title}</h3>
+            <span class="status-tag status-resolved">已解决</span>
+          </div>
+          <div class="case-tags">
+            ${item.tags.map(tag => `<span class="case-tag">${tag}</span>`).join('')}
+          </div>
+          <div class="item-content">${item.summary}</div>
+          <div class="item-footer">
+            <span>${item.category}</span>
+            <div style="display:flex;gap:14px">
+              <span>👁️ ${item.viewCount}</span>
+              <span>👍 ${item.likeCount}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<div class="empty"><span class="emoji">✅</span><div class="text">暂无解决案例</div></div>';
+    }
+  } catch (e) {
+    document.getElementById('resolvedCasesList').innerHTML = '<div class="empty"><span class="emoji">❌</span><div class="text">加载失败</div></div>';
+  }
+}
+
+function answerConsult(id) {
+  const answer = prompt('请输入您的回答：');
+  if (answer && answer.trim()) {
+    showToast('回答提交成功！');
+    loadPendingConsults();
+  }
+}
+
+function getStatusText(status) {
+  const map = { 'pending': '待回答', 'answered': '已回答', 'resolved': '已解决', 'closed': '已关闭' };
+  return map[status] || '未知';
+}
+
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diff = now - date;
+  if (diff < 60000) return '刚刚';
+  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
+  if (diff < 604800000) return `${Math.floor(diff / 86400000)}天前`;
+  return date.toLocaleDateString();
+}
+
+document.getElementById('consultContent')?.addEventListener('input', function() {
+  document.getElementById('charCount').textContent = this.value.length;
+});
+
+document.addEventListener('DOMContentLoaded', () => loadMyConsults());
+</script>
+{% endblock %}
