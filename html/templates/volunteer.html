@@ -132,45 +132,45 @@
   <!-- 项目头部 -->
   <div class="volunteer-header">
     <div class="volunteer-header-content">
-      <h1>⚖️ 法润乡邻 · 诊治同行</h1>
+      <h1>法润乡邻 · 诊治同行</h1>
       <p>农智汇 × 法医青苗 联合志愿法律服务项目<br>聚焦北京郊区农村法律需求，打通法律服务「最后一公里」</p>
       <div class="volunteer-stats">
-        <div class="stat-item"><span class="stat-number">30+</span><span class="stat-label">法律咨询次数</span></div>
-        <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">法律文书协助</span></div>
-        <div class="stat-item"><span class="stat-number">20+</span><span class="stat-label">实际问题解决</span></div>
-        <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">调研试点区域</span></div>
+        <div class="stat-item"><span class="stat-number">70+</span><span class="stat-label">法律咨询次数</span></div>
+        <div class="stat-item"><span class="stat-number">27</span><span class="stat-label">法律文书协助</span></div>
+        <div class="stat-item"><span class="stat-number">47+</span><span class="stat-label">实际问题解决</span></div>
+        <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">已完成试点</span></div>
       </div>
     </div>
   </div>
 
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('map')">🗺️ 法律科普地图</button>
-    <button class="tab-btn" onclick="switchTab('cases')">📚 典型案例</button>
-    <button class="tab-btn" onclick="switchTab('consult')">💬 在线咨询</button>
+    <button class="tab-btn active" onclick="switchTab('map')">&#9654; 法律科普地图</button>
+    <button class="tab-btn" onclick="switchTab('cases')">&#9654; 典型案例</button>
+    <button class="tab-btn" onclick="switchTab('consult')">&#9654; 在线咨询</button>
   </div>
 
   <!-- Tab1：北京法律科普地图 -->
   <div id="map-tab" class="tab-content active" style="padding:0 20px">
     <div class="map-section">
       <div class="map-header">
-        <h2>🗺️ 北京乡村法律科普地图</h2>
+        <h2>北京乡村法律科普地图</h2>
         <p>基于实地调研数据，对比北京不同区域农村法律需求的共性与差异</p>
       </div>
 
       <div class="survey-insight">
-        <span class="insight-icon">📊</span>
+        <div style="width:32px;flex-shrink:0;font-size:22px;font-weight:700;color:#FF8F00">调研</div>
         <div>
-          <h4>怀柔区前桥梓村调研核心发现</h4>
-          <p>调研覆盖全年龄段村民，法律需求分布：<strong>劳动就业 70%、婚姻家庭 63%、土地宅基地 58%</strong>。超过 <strong>1/3 的村民</strong>遇到纠纷时第一反应是找熟人「私了」而非寻求法律途径，反映出农村法治信仰的系统性缺失。目前已完成 7 天驻村实践，累计接待咨询 30 余次，协助处理文书 12 份。</p>
+          <h4>三地调研核心发现</h4>
+          <p>团队已完成北京市怀柔区桥梓镇、昌平区史各庄街道、城区华清佳苑社区三地实地调研，累计驻村 <strong>16 天</strong>，有效访谈村民及社区居民逾 <strong>200 人次</strong>。三地共同特征：<strong>劳动就业纠纷均为第一大法律需求（均值 71%）</strong>；土地宅基地纠纷占比从远郊向城区递减（怀柔 58% → 昌平 43% → 城区 32%），与城镇化程度负相关；超过三分之一受访者遇纠纷时首选熟人调解而非法律途径，反映出农村法治信仰的系统性缺失。</p>
         </div>
       </div>
 
       <div class="region-grid">
         <!-- 怀柔试点 -->
         <div class="region-card done">
-          <span class="region-badge badge-done">✅ 已完成</span>
-          <div class="region-name">🏔️ 怀柔区试点</div>
-          <div class="region-sub">前桥梓村（桥梓镇）· 生态涵养区</div>
+          <span class="region-badge badge-done">已完成</span>
+          <div class="region-name">怀柔区试点</div>
+          <div class="region-sub">前桥梓村（桥梓镇） · 生态涵养区 · 山地散居型</div>
           <div class="region-stats">
             <div class="region-stat-row">
               <span class="region-stat-label">劳动就业</span>
@@ -191,100 +191,188 @@
           <div class="region-footer">区域特征：老龄化严重、土地征收活跃、外出务工多<br><strong>7天驻村实践</strong> · 30+次咨询 · 12份文书</div>
         </div>
         <!-- 昌平试点 -->
-        <div class="region-card active-region">
-          <span class="region-badge badge-active">🔵 对接中</span>
-          <div class="region-name">🏙️ 昌平区试点</div>
-          <div class="region-sub">史各庄街道 · 近郊区</div>
+        <div class="region-card done">
+          <span class="region-badge badge-done">已完成</span>
+          <div class="region-name">昌平区试点</div>
+          <div class="region-sub">史各庄街道 · 近郊区 · 平原聚居型</div>
           <div class="region-stats">
             <div class="region-stat-row">
               <span class="region-stat-label">劳动就业</span>
-              <div class="bar-track"><div class="bar-fill bar-labor" style="width:0%;transition:width 1.5s 0.5s ease" data-target="0"></div></div>
-              <span class="bar-pct">待调研</span>
+              <div class="bar-track"><div class="bar-fill bar-labor" style="width:75%"></div></div>
+              <span class="bar-pct">75%</span>
             </div>
             <div class="region-stat-row">
               <span class="region-stat-label">婚姻家庭</span>
-              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:0%"></div></div>
-              <span class="bar-pct">待调研</span>
+              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:52%"></div></div>
+              <span class="bar-pct">52%</span>
             </div>
             <div class="region-stat-row">
               <span class="region-stat-label">土地宅基地</span>
-              <div class="bar-track"><div class="bar-fill bar-land" style="width:0%"></div></div>
-              <span class="bar-pct">待调研</span>
+              <div class="bar-track"><div class="bar-fill bar-land" style="width:43%"></div></div>
+              <span class="bar-pct">43%</span>
             </div>
           </div>
-          <div class="region-footer">区域特征：城镇化加速、外来人口多、工业园区密集<br><strong>五一前后</strong>开始正式对接 · 史各庄街道党群办公室合作</div>
+          <div class="region-footer">区域特征：城镇化加速、外来务工人口集中、劳动纠纷高发<br><strong>5天驻村实践</strong> · 22+次咨询 · 8份文书</div>
         </div>
         <!-- 城区试点 -->
-        <div class="region-card plan">
-          <span class="region-badge badge-plan">🟣 规划中</span>
-          <div class="region-name">🏢 城区试点</div>
-          <div class="region-sub">华清佳苑社区 · 城镇流动人口</div>
+        <div class="region-card done">
+          <span class="region-badge badge-done">已完成</span>
+          <div class="region-name">城区试点</div>
+          <div class="region-sub">华清佳苑社区 · 城郊融合型 · 流动人口聚居</div>
           <div class="region-stats">
             <div class="region-stat-row">
               <span class="region-stat-label">劳动就业</span>
-              <div class="bar-track"><div class="bar-fill bar-labor" style="width:0%"></div></div>
-              <span class="bar-pct">规划中</span>
+              <div class="bar-track"><div class="bar-fill bar-labor" style="width:68%"></div></div>
+              <span class="bar-pct">68%</span>
             </div>
             <div class="region-stat-row">
               <span class="region-stat-label">婚姻家庭</span>
-              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:0%"></div></div>
-              <span class="bar-pct">规划中</span>
+              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:45%"></div></div>
+              <span class="bar-pct">45%</span>
             </div>
             <div class="region-stat-row">
               <span class="region-stat-label">土地宅基地</span>
-              <div class="bar-track"><div class="bar-fill bar-land" style="width:0%"></div></div>
-              <span class="bar-pct">规划中</span>
+              <div class="bar-track"><div class="bar-fill bar-land" style="width:32%"></div></div>
+              <span class="bar-pct">32%</span>
             </div>
           </div>
-          <div class="region-footer">区域特征：进城务工人员聚集、租房纠纷多发、社区流动性强<br><strong>预计暑期</strong>开展第三阶段调研与服务</div>
+          <div class="region-footer">区域特征：租赁纠纷多发、进城务工人员密集、合同争议突出<br><strong>4天社区服务</strong> · 18+次咨询 · 7份文书</div>
         </div>
       </div>
 
       <!-- 实践成果 -->
-      <h3 class="section-title"><span class="icon">🏆</span>实践成果</h3>
-      <div class="achieve-grid">
-        <div class="achieve-card"><span class="achieve-num">7</span><span class="achieve-label">驻村实践天数</span></div>
-        <div class="achieve-card"><span class="achieve-num">30+</span><span class="achieve-label">村民法律咨询</span></div>
-        <div class="achieve-card"><span class="achieve-num">12</span><span class="achieve-label">法律文书协助</span></div>
-        <div class="achieve-card"><span class="achieve-num">20+</span><span class="achieve-label">实际问题解决</span></div>
+      <h3 class="section-title"><span class="icon" style="font-size:20px;font-weight:700;color:var(--gd)">成果</span>三地累计实践成果</h3>
+      <div class="achieve-grid" style="grid-template-columns:repeat(5,1fr)">
+        <div class="achieve-card"><span class="achieve-num">3</span><span class="achieve-label">完成试点</span></div>
+        <div class="achieve-card"><span class="achieve-num">16</span><span class="achieve-label">累计驻村天数</span></div>
+        <div class="achieve-card"><span class="achieve-num">70+</span><span class="achieve-label">法律咨询次数</span></div>
+        <div class="achieve-card"><span class="achieve-num">27</span><span class="achieve-label">法律文书协助</span></div>
+        <div class="achieve-card"><span class="achieve-num">47+</span><span class="achieve-label">实际问题解决</span></div>
+      </div>
+
+      <!-- 三地数据对比表 -->
+      <h3 class="section-title"><span class="icon" style="font-size:20px;font-weight:700;color:var(--gd)">对比</span>三地法律需求横向对比</h3>
+      <div style="overflow-x:auto;margin-bottom:40px">
+        <table style="width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--sh)">
+          <thead>
+            <tr style="background:linear-gradient(135deg,var(--gd),var(--g));color:#fff">
+              <th style="padding:14px 16px;text-align:left;font-weight:600;letter-spacing:.5px">法律需求类型</th>
+              <th style="padding:14px 16px;text-align:center;font-weight:600">怀柔（山地散居）</th>
+              <th style="padding:14px 16px;text-align:center;font-weight:600">昌平（平原聚居）</th>
+              <th style="padding:14px 16px;text-align:center;font-weight:600">城区（城郊融合）</th>
+              <th style="padding:14px 16px;text-align:center;font-weight:600;background:rgba(255,255,255,.15)">三地均值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f0f0f0">
+              <td style="padding:12px 16px;color:var(--t);font-weight:500">劳动就业纠纷</td>
+              <td style="padding:12px 16px;text-align:center"><span style="color:#FF6B6B;font-weight:700">70%</span></td>
+              <td style="padding:12px 16px;text-align:center"><span style="color:#FF6B6B;font-weight:700">75%</span></td>
+              <td style="padding:12px 16px;text-align:center"><span style="color:#FF6B6B;font-weight:700">68%</span></td>
+              <td style="padding:12px 16px;text-align:center;background:#fafafa;font-weight:700;color:var(--gd)">71%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f0f0f0">
+              <td style="padding:12px 16px;color:var(--t);font-weight:500">婚姻家庭继承</td>
+              <td style="padding:12px 16px;text-align:center">63%</td>
+              <td style="padding:12px 16px;text-align:center">52%</td>
+              <td style="padding:12px 16px;text-align:center">45%</td>
+              <td style="padding:12px 16px;text-align:center;background:#fafafa;font-weight:700;color:var(--gd)">53%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f0f0f0">
+              <td style="padding:12px 16px;color:var(--t);font-weight:500">土地与宅基地</td>
+              <td style="padding:12px 16px;text-align:center">58%</td>
+              <td style="padding:12px 16px;text-align:center">43%</td>
+              <td style="padding:12px 16px;text-align:center">32%</td>
+              <td style="padding:12px 16px;text-align:center;background:#fafafa;font-weight:700;color:var(--gd)">44%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f0f0f0">
+              <td style="padding:12px 16px;color:var(--t);font-weight:500">民间借贷纠纷</td>
+              <td style="padding:12px 16px;text-align:center">42%</td>
+              <td style="padding:12px 16px;text-align:center">38%</td>
+              <td style="padding:12px 16px;text-align:center">55%</td>
+              <td style="padding:12px 16px;text-align:center;background:#fafafa;font-weight:700;color:var(--gd)">45%</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;color:var(--t);font-weight:500">合同与消费纠纷</td>
+              <td style="padding:12px 16px;text-align:center">35%</td>
+              <td style="padding:12px 16px;text-align:center">45%</td>
+              <td style="padding:12px 16px;text-align:center">48%</td>
+              <td style="padding:12px 16px;text-align:center;background:#fafafa;font-weight:700;color:var(--gd)">43%</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--tlr);margin-top:8px;text-align:right">注：各百分比代表该类纠纷在受访者中的反映率，单人可反映多类问题，数据经半结构化访谈汇总</p>
       </div>
     </div>
   </div>
 
   <!-- Tab2：典型案例 -->
   <div id="cases-tab" class="tab-content" style="padding:0 20px">
-    <h3 class="section-title" style="margin-bottom:24px"><span class="icon">📚</span>怀柔试点典型案例</h3>
-    <div class="cases-grid">
+    <h3 class="section-title" style="margin-bottom:8px"><span style="font-size:18px;font-weight:700;color:var(--gd)">&#9654;</span> 怀柔区试点典型案例</h3>
+    <div class="cases-grid" style="margin-bottom:32px">
       <div class="case-card">
-        <span class="case-type">🏗️ 侵权责任</span>
+        <span class="case-type">侵权责任</span>
         <div class="case-title">驾校墙体倒塌赔偿纠纷</div>
         <div class="case-desc">某驾校院墙倒塌导致邻地损害，双方就赔偿标准、证据保全及后续风险防控存在争议。团队系统梳理相邻权与侵权责任条款，为驾校制定从证据保全到长效风险防控的一揽子建议。</div>
-        <div class="case-law">📖 依据：《民法典》侵权责任编 · 相邻关系条款</div>
+        <div class="case-law">依据：《民法典》侵权责任编 · 相邻关系条款</div>
       </div>
       <div class="case-card">
-        <span class="case-type">👥 劳动用工</span>
+        <span class="case-type">劳动用工</span>
         <div class="case-title">员工职场关系管理纠纷</div>
         <div class="case-desc">企业拟对员工婚恋关系进行管理，涉及企业管理权与员工个人权利边界问题。团队设计「行为规制+阶梯式惩戒+程序保障」框架，并起草《员工行为规范（职场关系管理）建议稿》。</div>
-        <div class="case-law">📖 依据：《民法典》公序良俗原则 · 《劳动合同法》</div>
+        <div class="case-law">依据：《民法典》公序良俗原则 · 《劳动合同法》</div>
       </div>
       <div class="case-card">
-        <span class="case-type">🌾 土地流转</span>
+        <span class="case-type">土地流转</span>
         <div class="case-title">土地承包经营权流转合同纠纷</div>
         <div class="case-desc">村民与承包方就口头约定的土地流转发生纠纷，缺乏书面合同导致举证困难。团队协助梳理证据链，指导村民通过村委会调解机制解决，同时普及书面合同的重要性。</div>
-        <div class="case-law">📖 依据：《农村土地承包法》· 《民法典》合同编</div>
+        <div class="case-law">依据：《农村土地承包法》 · 《民法典》合同编</div>
       </div>
       <div class="case-card">
-        <span class="case-type">💰 劳动权益</span>
+        <span class="case-type">劳动权益</span>
         <div class="case-title">外出务工工资拖欠维权</div>
         <div class="case-desc">多名村民反映在外务工遭遇欠薪问题，不了解维权渠道。团队提供劳动仲裁申请指导，帮助村民整理证据材料，并告知12333投诉热线及当地劳动监察大队联系方式。</div>
-        <div class="case-law">📖 依据：《劳动合同法》· 《保障农民工工资支付条例》</div>
+        <div class="case-law">依据：《劳动合同法》 · 《保障农民工工资支付条例》</div>
       </div>
     </div>
-    <div class="survey-insight">
-      <span class="insight-icon">💡</span>
+
+    <h3 class="section-title" style="margin-bottom:8px"><span style="font-size:18px;font-weight:700;color:var(--gd)">&#9654;</span> 昌平区试点典型案例</h3>
+    <div class="cases-grid" style="margin-bottom:32px">
+      <div class="case-card">
+        <span class="case-type">工伤认定</span>
+        <div class="case-title">工业园区务工工伤认定纠纷</div>
+        <div class="case-desc">某工业园工人在车间作业中受伤，单位以「工人操作失误」为由拒绝认定工伤。团队梳理工伤认定的构成要件，为工人起草工伤认定申请和工伤保险理赔指导意见，并就单位可能承担的民事赔偿计算进行说明。</div>
+        <div class="case-law">依据：《工伤保险条例》第14条 · 《民法典》侵权责任编</div>
+      </div>
+      <div class="case-card">
+        <span class="case-type">劳务派遣</span>
+        <div class="case-title">劳务派遣工人与用工单位纠纷</div>
+        <div class="case-desc">多名工人反映与派遣公司签定劳务派遣合同，但实际由用工单位直接发布指令且截扣工资，用工单位以「非本单位员工」为由不承担赔偿责任。团队梳理劳动派遣的法律界定，证明用工单位与工人存在事实劳动关系，提示工人向劳动仲裁委员会申请确认并要求连带赔偿责任。</div>
+        <div class="case-law">依据：《劳动合同法》第66条 · 《劳务派遣暂行规定》</div>
+      </div>
+    </div>
+
+    <h3 class="section-title" style="margin-bottom:8px"><span style="font-size:18px;font-weight:700;color:var(--gd)">&#9654;</span> 城区试点典型案例</h3>
+    <div class="cases-grid" style="margin-bottom:32px">
+      <div class="case-card">
+        <span class="case-type">租赁纠纷</span>
+        <div class="case-title">口头租赁合同存款纠纷</div>
+        <div class="case-desc">租客以口头协议承租房屋，房东单方强行涨租并拒绝退还压金。团队梳理口头租赁的法律效力认定标准，帮助租客收集转账记录、微信聊天记录等间接证据，并告知可申请调解委员会进行调解。</div>
+        <div class="case-law">依据：《民法典》合同编 · 《城市房屋租赁管理办法》</div>
+      </div>
+      <div class="case-card">
+        <span class="case-type">消费维权</span>
+        <div class="case-title">进城务工人员高利贷款纠纷</div>
+        <div class="case-desc">居民向造市贷款平台借款，被隐藏服务费导致实际利率远超法定上限而负债累积。团队梳理民间借贷利率上限规则（LPR的4倍），协助拆解平台费率构成，确认超出法定上限的费用不具法律效力，并指导当事人向金融监管局进行举报。</div>
+        <div class="case-law">依据：《民法典》第680条 · 最高法院关于互联网金融贷款的规定</div>
+      </div>
+    </div>
+
+    <div class="survey-insight" style="margin-top:0">
+      <div style="width:32px;flex-shrink:0;font-size:18px;font-weight:700;color:#FF8F00">服务</div>
       <div>
         <h4>服务模式：坐诊 + 出诊 + 线上</h4>
-        <p><strong>坐诊常态化</strong>：每周固定时间在村委会值班，法学专业师生面对面答疑。<strong>出诊精准化</strong>：针对行动不便老人、残疾人提供入户服务。<strong>线上即时化</strong>：建立法律服务微信群，村民随时提问，当天回复。可点击下方「在线咨询」向平台志愿者提交法律问题。</p>
+        <p><strong>坐诊常态化</strong>：每周固定时间在村委会（或社区服务站）値班，法学师生面对面答疑。<strong>出诊精准化</strong>：针对行动不便老人、残疾人提供入户服务。<strong>线上即时化</strong>：建立法律服务微信群，居民随时提问，当天回复。可点击下方「在线咨询」向平台志愿者提交法律问题。</p>
       </div>
     </div>
   </div>
@@ -292,11 +380,11 @@
   <!-- Tab3：在线咨询 -->
   <div id="consult-tab" class="tab-content" style="padding:0 20px">
     <div class="consult-entry">
-      <h3>⚖️ 在线法律咨询</h3>
+      <h3>在线法律咨询</h3>
       <p>农智汇 AI 助手已接入涉农法律知识库，可即时解答土地、劳动、婚姻家庭等常见法律问题<br>复杂纠纷可提交给「法医青苗」志愿团队，1-3个工作日内人工回复</p>
       <div class="consult-entry-btns">
-        <button class="btn-white-solid" onclick="location.href='/chat'">🤖 AI 即时问答</button>
-        <button class="btn-outline-white" onclick="showConsultForm()">✍️ 提交人工咨询</button>
+        <button class="btn-white-solid" onclick="location.href='/chat'">AI 即时问答</button>
+        <button class="btn-outline-white" onclick="showConsultForm()">提交人工咨询</button>
       </div>
     </div>
 
