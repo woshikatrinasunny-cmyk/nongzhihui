@@ -47,21 +47,20 @@
     <div class="chat-avatar-row">
       <div class="chat-avatar">🌾</div>
     </div>
-    <h2>耒阳方言农业智能助手</h2>
-    <p>基于大语言模型微调 · 融合耒阳方言与本地涉农政策</p>
+    <h2>三农智慧助手</h2>
+    <p>涉农法律咨询 · 农业政策解读 · 耒阳方言交互</p>
   </div>
   <div class="chat-body" id="chatBody">
     <div class="msg msg-bot">
       <div class="msg-avatar">🌾</div>
-      <div class="msg-bubble">你好！我是农智汇·耒阳方言农业智能助手 👋
+      <div class="msg-bubble">你好！我是农智汇·三农智慧助手 👋
 
-我经过耒阳方言语料和本地涉农政策数据的微调训练，可以帮你：
+我可以帮你解答：
 
-🌱 解答农业种植技术问题
-📋 查询耒阳最新惠农政策
-🫒 油茶种植与加工指导
-💰 农业补贴和贷款贴息咨询
-🗣️ 用耒阳方言和你聊天
+⚖️ 土地流转、宅基地、劳动欠薪、婚姻家庭等农村常见法律问题
+📋 耒阳/北京郊区最新惠农政策与补贴
+🌱 农业种植技术与合作社经营指导
+️ 可以理解耒阳方言，用你熟悉的方式交流
 
 有么子要问的，尽管讲！</div>
     </div>
@@ -73,8 +72,9 @@
     </div>
     <div class="chat-actions">
       <div class="left">
+        <button class="quick-q" onclick="quickAsk('工资被拖欠，有劳动合同，怎么维权？')">⚠️ 欠薪维权</button>
+        <button class="quick-q" onclick="quickAsk('宅基地边界争议怎么处理？')">🌾 宅基地纠纷</button>
         <button class="quick-q" onclick="quickAsk('耒阳油茶补贴政策有哪些')">🫒 油茶补贴</button>
-        <button class="quick-q" onclick="quickAsk('耒阳方言里怎么说种田')">🗣️ 方言问答</button>
         <button class="quick-q" onclick="quickAsk('2026年有什么新的农业政策')">📋 最新政策</button>
       </div>
       <button class="clear-btn" onclick="clearChat()">🗑️ 清除对话</button>

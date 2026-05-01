@@ -57,7 +57,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>🌾 农智汇</h1>
-    <p>一站式涉农知识检索引擎 · 助力乡村振兴</p>
+    <p>涉农知识检索 · 法律科普地图 · 智能问答 · 助力乡村振兴</p>
     <form class="search-box" action="/search" method="get">
       <input type="text" name="keyword" placeholder="搜索涉农法律、政策、技术..." autocomplete="off">
       <button type="submit">搜索</button>
@@ -76,14 +76,14 @@
       <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80" alt="政策解读">
       <div class="overlay"><h3>政策解读</h3><p>最新涉农政策一手掌握</p></div>
     </div>
-    <div class="banner-card" onclick="location.href='/category/tech'">
-      <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&q=80" alt="农技推广">
-      <div class="overlay"><h3>农技推广</h3><p>科学种植 增产增收</p></div>
+    <div class="banner-card" onclick="location.href='/volunteer'">
+      <img src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=600&q=80" alt="法润乡邻">
+      <div class="overlay"><h3>⚖️ 法润乡邻</h3><p>北京法律科普地图 · 免费法律援助</p></div>
     </div>
   </div>
 
   <!-- 快捷入口 -->
-  <div class="quick-grid">
+  <div class="quick-grid" style="grid-template-columns:repeat(5,1fr)">
     <a href="/category/law" class="quick-item">
       <div class="img-wrap">
         <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=80" alt="法律法规">
@@ -111,6 +111,13 @@
         <div class="icon-overlay">📖</div>
       </div>
       <div class="info"><div class="name">乡土文献</div></div>
+    </a>
+    <a href="/volunteer" class="quick-item">
+      <div class="img-wrap" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">
+        <img src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=400&q=80" alt="法律援助">
+        <div class="icon-overlay">🤝</div>
+      </div>
+      <div class="info"><div class="name">法律援助</div></div>
     </a>
   </div>
 

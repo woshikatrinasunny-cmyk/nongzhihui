@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set active_tab = 'volunteer' %}
-{% block title %}志愿服务{% endblock %}
+{% block title %}法润乡邻 · 志愿法律服务{% endblock %}
 {% block extra_style %}
 .volunteer-page{max-width:1100px;margin:0 auto}
 .volunteer-header{text-align:center;padding:50px 20px;background:linear-gradient(135deg,var(--gbg) 0%,#fff 100%);border-radius:var(--r);margin-bottom:35px;position:relative;overflow:hidden}
@@ -71,123 +71,289 @@
 .page-btn.active{border-color:var(--gd);background:var(--gbg);color:var(--gd);font-weight:600}
 .page-btn:hover:not(.active){border-color:var(--g);transform:translateY(-1px)}
 @media(max-width:768px){.volunteer-header{padding:35px 20px}.volunteer-header h1{font-size:28px}.volunteer-stats{gap:25px}.stat-number{font-size:22px}.tab-nav{padding:0 16px}.tab-btn{padding:12px 20px;font-size:14px}.tab-content{padding:0 16px}.consult-form{padding:24px}.filter-bar{gap:8px}.filter-btn{padding:6px 14px;font-size:13px}}
+.map-section{margin-bottom:40px}
+.map-header{text-align:center;margin-bottom:30px}
+.map-header h2{font-size:24px;color:var(--gd);margin-bottom:8px;font-weight:700;letter-spacing:2px}
+.map-header p{color:var(--tl);font-size:14px}
+.region-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:30px}
+.region-card{background:#fff;border-radius:var(--r);padding:28px 24px;box-shadow:var(--sh);transition:all .3s;position:relative;overflow:hidden;cursor:default}
+.region-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.06}
+.region-card.done::before{background:var(--gd)}
+.region-card.active-region::before{background:#1976d2}
+.region-card.plan::before{background:#7B1FA2}
+.region-card:hover{transform:translateY(-4px);box-shadow:var(--shl)}
+.region-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;margin-bottom:14px}
+.badge-done{background:#E8F5E9;color:#2E7D32}
+.badge-active{background:#E3F2FD;color:#1565C0}
+.badge-plan{background:#F3E5F5;color:#6A1B9A}
+.region-name{font-size:18px;font-weight:700;color:var(--t);margin-bottom:4px}
+.region-sub{font-size:13px;color:var(--tlr);margin-bottom:18px}
+.region-stats{margin-bottom:16px}
+.region-stat-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:14px}
+.region-stat-label{color:var(--tl);flex-shrink:0;width:90px}
+.bar-track{flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width 1s ease}
+.bar-labor{background:linear-gradient(90deg,#FF6B6B,#FF8E53)}
+.bar-marriage{background:linear-gradient(90deg,#FF9A9E,#F6416C)}
+.bar-land{background:linear-gradient(90deg,#96E6A1,#2ECC71)}
+.bar-pct{font-size:12px;color:var(--tlr);flex-shrink:0;width:36px;text-align:right}
+.region-footer{font-size:13px;color:var(--tlr);border-top:1px solid #f5f5f5;padding-top:12px}
+.region-footer strong{color:var(--gd)}
+.survey-insight{background:linear-gradient(135deg,#fff8e1,#fff3e0);border-radius:var(--r);padding:24px 28px;margin-bottom:40px;border-left:4px solid #FF8F00;display:flex;gap:20px;align-items:flex-start}
+.survey-insight .insight-icon{font-size:32px;flex-shrink:0}
+.survey-insight h4{color:#E65100;font-size:16px;margin-bottom:8px;font-weight:700}
+.survey-insight p{color:var(--tl);font-size:14px;line-height:1.8}
+.achieve-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.achieve-card{background:#fff;border-radius:var(--r);padding:24px 16px;text-align:center;box-shadow:var(--sh);border-top:3px solid var(--gl)}
+.achieve-num{font-size:32px;font-weight:800;color:var(--gd);display:block;margin-bottom:6px}
+.achieve-label{font-size:13px;color:var(--tl)}
+.cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:40px}
+.case-card{background:#fff;border-radius:var(--r);padding:24px;box-shadow:var(--sh);border-left:4px solid var(--gl);transition:all .3s}
+.case-card:hover{transform:translateY(-3px);box-shadow:var(--shl);border-left-color:var(--gd)}
+.case-type{display:inline-block;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:600;margin-bottom:10px;background:#E8F5E9;color:#2E7D32}
+.case-title{font-size:16px;font-weight:700;color:var(--t);margin-bottom:10px;line-height:1.5}
+.case-desc{font-size:14px;color:var(--tl);line-height:1.8;margin-bottom:12px}
+.case-law{font-size:12px;color:var(--tlr);background:#f5f5f5;padding:6px 10px;border-radius:6px}
+.consult-entry{background:linear-gradient(135deg,var(--gd),#43A047);border-radius:var(--r);padding:40px;text-align:center;color:#fff;margin-bottom:40px;position:relative;overflow:hidden}
+.consult-entry::before{content:'⚖️';font-size:120px;position:absolute;right:-10px;top:-20px;opacity:.1}
+.consult-entry h3{font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:2px}
+.consult-entry p{font-size:14px;opacity:.9;margin-bottom:24px;line-height:1.8}
+.consult-entry-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-white-solid{background:#fff;color:var(--gd);border:none;padding:12px 28px;border-radius:24px;font-size:15px;cursor:pointer;font-family:'Noto Serif SC',serif;font-weight:600;transition:all .25s;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.btn-white-solid:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.6);padding:12px 28px;border-radius:24px;font-size:15px;cursor:pointer;font-family:'Noto Serif SC',serif;transition:all .25s}
+.btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:#fff}
+@media(max-width:900px){.region-grid{grid-template-columns:1fr}.achieve-grid{grid-template-columns:repeat(2,1fr)}.cases-grid{grid-template-columns:1fr}}
 {% endblock %}
+
 
 {% block content %}
 <div class="container volunteer-page">
+  <!-- 项目头部 -->
   <div class="volunteer-header">
     <div class="volunteer-header-content">
-      <h1>🤝 志愿服务平台</h1>
-      <p>专业志愿者为您提供法律咨询和答疑服务 · 共建和谐农村社区</p>
+      <h1>⚖️ 法润乡邻 · 诊治同行</h1>
+      <p>农智汇 × 法医青苗 联合志愿法律服务项目<br>聚焦北京郊区农村法律需求，打通法律服务「最后一公里」</p>
       <div class="volunteer-stats">
-        <div class="stat-item">
-          <span class="stat-number" id="totalConsults">128</span>
-          <span class="stat-label">累计咨询</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" id="totalVolunteers">45</span>
-          <span class="stat-label">活跃志愿者</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" id="resolvedCases">96</span>
-          <span class="stat-label">已解决案例</span>
-        </div>
+        <div class="stat-item"><span class="stat-number">30+</span><span class="stat-label">法律咨询次数</span></div>
+        <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">法律文书协助</span></div>
+        <div class="stat-item"><span class="stat-number">20+</span><span class="stat-label">实际问题解决</span></div>
+        <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">调研试点区域</span></div>
       </div>
     </div>
   </div>
 
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('consult')">
-      💬 我要咨询
-      <span class="badge" id="myConsultsBadge" style="display:none">0</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('help')">
-      🆘 我要帮助
-      <span class="badge" id="pendingBadge">0</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('cases')">
-      ✅ 解决案例
-    </button>
+    <button class="tab-btn active" onclick="switchTab('map')">🗺️ 法律科普地图</button>
+    <button class="tab-btn" onclick="switchTab('cases')">📚 典型案例</button>
+    <button class="tab-btn" onclick="switchTab('consult')">💬 在线咨询</button>
   </div>
 
-  <!-- 我要咨询 -->
-  <div id="consult-tab" class="tab-content active">
-    <div class="consult-form">
-      <h3>发布咨询</h3>
-      <div class="form-group">
-        <label class="form-label">咨询类别</label>
-        <select id="consultCategory" class="form-select">
-          <option value="法律咨询">法律咨询</option>
-          <option value="政策解读">政策解读</option>
-          <option value="技术指导">技术指导</option>
-          <option value="其他问题">其他问题</option>
-        </select>
+  <!-- Tab1：北京法律科普地图 -->
+  <div id="map-tab" class="tab-content active" style="padding:0 20px">
+    <div class="map-section">
+      <div class="map-header">
+        <h2>🗺️ 北京乡村法律科普地图</h2>
+        <p>基于实地调研数据，对比北京不同区域农村法律需求的共性与差异</p>
       </div>
-      <div class="form-group">
-        <label class="form-label">问题描述</label>
-        <textarea id="consultContent" class="form-textarea" placeholder="请详细描述您的问题，包括具体情况、遇到的困难等，我们的志愿者会尽快为您解答..." maxlength="500"></textarea>
-        <div class="quick-tags">
-          <span style="font-size:13px;color:var(--tlr);margin-right:8px">快捷标签:</span>
-          <button class="quick-tag" onclick="addTag('土地承包')">土地承包</button>
-          <button class="quick-tag" onclick="addTag('农业补贴')">农业补贴</button>
-          <button class="quick-tag" onclick="addTag('合同纠纷')">合同纠纷</button>
-          <button class="quick-tag" onclick="addTag('种植技术')">种植技术</button>
-        </div>
-        <div class="form-footer">
-          <span class="char-count">
-            <span class="icon">📝</span>
-            <span id="charCount">0</span>/500
-          </span>
-          <button class="btn btn-green" onclick="submitConsult()">发布咨询</button>
+
+      <div class="survey-insight">
+        <span class="insight-icon">📊</span>
+        <div>
+          <h4>怀柔区前桥梓村调研核心发现</h4>
+          <p>调研覆盖全年龄段村民，法律需求分布：<strong>劳动就业 70%、婚姻家庭 63%、土地宅基地 58%</strong>。超过 <strong>1/3 的村民</strong>遇到纠纷时第一反应是找熟人「私了」而非寻求法律途径，反映出农村法治信仰的系统性缺失。目前已完成 7 天驻村实践，累计接待咨询 30 余次，协助处理文书 12 份。</p>
         </div>
       </div>
-    </div>
-    
-    <h3 class="section-title">
-      <span class="icon">📋</span>
-      我的咨询记录
-    </h3>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterMyConsults('all')">全部</button>
-      <button class="filter-btn" onclick="filterMyConsults('pending')">待回答</button>
-      <button class="filter-btn" onclick="filterMyConsults('answered')">已回答</button>
-      <button class="filter-btn" onclick="filterMyConsults('resolved')">已解决</button>
-    </div>
-    <div id="myConsultsList" class="consult-list">
-      <div class="loading-dots"><span></span><span></span><span></span></div>
+
+      <div class="region-grid">
+        <!-- 怀柔试点 -->
+        <div class="region-card done">
+          <span class="region-badge badge-done">✅ 已完成</span>
+          <div class="region-name">🏔️ 怀柔区试点</div>
+          <div class="region-sub">前桥梓村（桥梓镇）· 生态涵养区</div>
+          <div class="region-stats">
+            <div class="region-stat-row">
+              <span class="region-stat-label">劳动就业</span>
+              <div class="bar-track"><div class="bar-fill bar-labor" style="width:70%"></div></div>
+              <span class="bar-pct">70%</span>
+            </div>
+            <div class="region-stat-row">
+              <span class="region-stat-label">婚姻家庭</span>
+              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:63%"></div></div>
+              <span class="bar-pct">63%</span>
+            </div>
+            <div class="region-stat-row">
+              <span class="region-stat-label">土地宅基地</span>
+              <div class="bar-track"><div class="bar-fill bar-land" style="width:58%"></div></div>
+              <span class="bar-pct">58%</span>
+            </div>
+          </div>
+          <div class="region-footer">区域特征：老龄化严重、土地征收活跃、外出务工多<br><strong>7天驻村实践</strong> · 30+次咨询 · 12份文书</div>
+        </div>
+        <!-- 昌平试点 -->
+        <div class="region-card active-region">
+          <span class="region-badge badge-active">🔵 对接中</span>
+          <div class="region-name">🏙️ 昌平区试点</div>
+          <div class="region-sub">史各庄街道 · 近郊区</div>
+          <div class="region-stats">
+            <div class="region-stat-row">
+              <span class="region-stat-label">劳动就业</span>
+              <div class="bar-track"><div class="bar-fill bar-labor" style="width:0%;transition:width 1.5s 0.5s ease" data-target="0"></div></div>
+              <span class="bar-pct">待调研</span>
+            </div>
+            <div class="region-stat-row">
+              <span class="region-stat-label">婚姻家庭</span>
+              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:0%"></div></div>
+              <span class="bar-pct">待调研</span>
+            </div>
+            <div class="region-stat-row">
+              <span class="region-stat-label">土地宅基地</span>
+              <div class="bar-track"><div class="bar-fill bar-land" style="width:0%"></div></div>
+              <span class="bar-pct">待调研</span>
+            </div>
+          </div>
+          <div class="region-footer">区域特征：城镇化加速、外来人口多、工业园区密集<br><strong>五一前后</strong>开始正式对接 · 史各庄街道党群办公室合作</div>
+        </div>
+        <!-- 城区试点 -->
+        <div class="region-card plan">
+          <span class="region-badge badge-plan">🟣 规划中</span>
+          <div class="region-name">🏢 城区试点</div>
+          <div class="region-sub">华清佳苑社区 · 城镇流动人口</div>
+          <div class="region-stats">
+            <div class="region-stat-row">
+              <span class="region-stat-label">劳动就业</span>
+              <div class="bar-track"><div class="bar-fill bar-labor" style="width:0%"></div></div>
+              <span class="bar-pct">规划中</span>
+            </div>
+            <div class="region-stat-row">
+              <span class="region-stat-label">婚姻家庭</span>
+              <div class="bar-track"><div class="bar-fill bar-marriage" style="width:0%"></div></div>
+              <span class="bar-pct">规划中</span>
+            </div>
+            <div class="region-stat-row">
+              <span class="region-stat-label">土地宅基地</span>
+              <div class="bar-track"><div class="bar-fill bar-land" style="width:0%"></div></div>
+              <span class="bar-pct">规划中</span>
+            </div>
+          </div>
+          <div class="region-footer">区域特征：进城务工人员聚集、租房纠纷多发、社区流动性强<br><strong>预计暑期</strong>开展第三阶段调研与服务</div>
+        </div>
+      </div>
+
+      <!-- 实践成果 -->
+      <h3 class="section-title"><span class="icon">🏆</span>实践成果</h3>
+      <div class="achieve-grid">
+        <div class="achieve-card"><span class="achieve-num">7</span><span class="achieve-label">驻村实践天数</span></div>
+        <div class="achieve-card"><span class="achieve-num">30+</span><span class="achieve-label">村民法律咨询</span></div>
+        <div class="achieve-card"><span class="achieve-num">12</span><span class="achieve-label">法律文书协助</span></div>
+        <div class="achieve-card"><span class="achieve-num">20+</span><span class="achieve-label">实际问题解决</span></div>
+      </div>
     </div>
   </div>
 
-  <!-- 我要帮助 -->
-  <div id="help-tab" class="tab-content">
-    <h3 class="section-title">
-      <span class="icon">🆘</span>
-      待回答咨询列表
-    </h3>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterPending('all')">全部类别</button>
-      <button class="filter-btn" onclick="filterPending('法律咨询')">法律咨询</button>
-      <button class="filter-btn" onclick="filterPending('政策解读')">政策解读</button>
-      <button class="filter-btn" onclick="filterPending('技术指导')">技术指导</button>
+  <!-- Tab2：典型案例 -->
+  <div id="cases-tab" class="tab-content" style="padding:0 20px">
+    <h3 class="section-title" style="margin-bottom:24px"><span class="icon">📚</span>怀柔试点典型案例</h3>
+    <div class="cases-grid">
+      <div class="case-card">
+        <span class="case-type">🏗️ 侵权责任</span>
+        <div class="case-title">驾校墙体倒塌赔偿纠纷</div>
+        <div class="case-desc">某驾校院墙倒塌导致邻地损害，双方就赔偿标准、证据保全及后续风险防控存在争议。团队系统梳理相邻权与侵权责任条款，为驾校制定从证据保全到长效风险防控的一揽子建议。</div>
+        <div class="case-law">📖 依据：《民法典》侵权责任编 · 相邻关系条款</div>
+      </div>
+      <div class="case-card">
+        <span class="case-type">👥 劳动用工</span>
+        <div class="case-title">员工职场关系管理纠纷</div>
+        <div class="case-desc">企业拟对员工婚恋关系进行管理，涉及企业管理权与员工个人权利边界问题。团队设计「行为规制+阶梯式惩戒+程序保障」框架，并起草《员工行为规范（职场关系管理）建议稿》。</div>
+        <div class="case-law">📖 依据：《民法典》公序良俗原则 · 《劳动合同法》</div>
+      </div>
+      <div class="case-card">
+        <span class="case-type">🌾 土地流转</span>
+        <div class="case-title">土地承包经营权流转合同纠纷</div>
+        <div class="case-desc">村民与承包方就口头约定的土地流转发生纠纷，缺乏书面合同导致举证困难。团队协助梳理证据链，指导村民通过村委会调解机制解决，同时普及书面合同的重要性。</div>
+        <div class="case-law">📖 依据：《农村土地承包法》· 《民法典》合同编</div>
+      </div>
+      <div class="case-card">
+        <span class="case-type">💰 劳动权益</span>
+        <div class="case-title">外出务工工资拖欠维权</div>
+        <div class="case-desc">多名村民反映在外务工遭遇欠薪问题，不了解维权渠道。团队提供劳动仲裁申请指导，帮助村民整理证据材料，并告知12333投诉热线及当地劳动监察大队联系方式。</div>
+        <div class="case-law">📖 依据：《劳动合同法》· 《保障农民工工资支付条例》</div>
+      </div>
     </div>
-    <div id="pendingConsultsList" class="consult-list">
-      <div class="loading-dots"><span></span><span></span><span></span></div>
+    <div class="survey-insight">
+      <span class="insight-icon">💡</span>
+      <div>
+        <h4>服务模式：坐诊 + 出诊 + 线上</h4>
+        <p><strong>坐诊常态化</strong>：每周固定时间在村委会值班，法学专业师生面对面答疑。<strong>出诊精准化</strong>：针对行动不便老人、残疾人提供入户服务。<strong>线上即时化</strong>：建立法律服务微信群，村民随时提问，当天回复。可点击下方「在线咨询」向平台志愿者提交法律问题。</p>
+      </div>
     </div>
   </div>
 
-  <!-- 解决案例 -->
-  <div id="cases-tab" class="tab-content">
-    <h3 class="section-title">
-      <span class="icon">✅</span>
-      优秀案例展示
-    </h3>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCases('all')">全部案例</button>
-      <button class="filter-btn" onclick="filterCases('hot')">🔥 热门</button>
-      <button class="filter-btn" onclick="filterCases('latest')">🆕 最新</button>
+  <!-- Tab3：在线咨询 -->
+  <div id="consult-tab" class="tab-content" style="padding:0 20px">
+    <div class="consult-entry">
+      <h3>⚖️ 在线法律咨询</h3>
+      <p>农智汇 AI 助手已接入涉农法律知识库，可即时解答土地、劳动、婚姻家庭等常见法律问题<br>复杂纠纷可提交给「法医青苗」志愿团队，1-3个工作日内人工回复</p>
+      <div class="consult-entry-btns">
+        <button class="btn-white-solid" onclick="location.href='/chat'">🤖 AI 即时问答</button>
+        <button class="btn-outline-white" onclick="showConsultForm()">✍️ 提交人工咨询</button>
+      </div>
     </div>
-    <div id="resolvedCasesList" class="case-list">
-      <div class="loading-dots"><span></span><span></span><span></span></div>
+
+    <div id="humanConsultForm" style="display:none">
+      <div class="consult-form">
+        <h3 style="font-size:18px;margin-bottom:20px;color:var(--gd)">提交咨询（人工回复，1-3工作日）</h3>
+        <div class="form-group">
+          <label class="form-label">问题类别</label>
+          <select id="consultCategory" class="form-select">
+            <option value="土地宅基地">土地与宅基地纠纷</option>
+            <option value="劳动就业">劳动就业权益</option>
+            <option value="婚姻家庭">婚姻家庭继承</option>
+            <option value="民间借贷">民间借贷</option>
+            <option value="合同纠纷">合同纠纷</option>
+            <option value="消费维权">消费维权（农资等）</option>
+            <option value="其他">其他法律问题</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">问题描述（请尽量详细，包括时间、金额、对方情况等）</label>
+          <textarea id="consultContent" class="form-textarea" placeholder="例如：我在外打工，老板欠了我3个月工资共15000元，有劳动合同但对方不承认，现在怎么办？" maxlength="600"></textarea>
+          <div class="quick-tags">
+            <span style="font-size:13px;color:var(--tlr);margin-right:6px">常见问题：</span>
+            <button class="quick-tag" onclick="fillTag('工资被拖欠，有劳动合同，怎么维权？')">欠薪维权</button>
+            <button class="quick-tag" onclick="fillTag('宅基地边界有争议，邻居侵占，怎么办？')">宅基地纠纷</button>
+            <button class="quick-tag" onclick="fillTag('土地流转合同到期，对方不续约也不退地，怎么处理？')">土地流转</button>
+            <button class="quick-tag" onclick="fillTag('离婚财产如何分割，婚前房产算共同财产吗？')">婚姻财产</button>
+          </div>
+          <div class="form-footer">
+            <span class="char-count"><span class="icon">📝</span><span id="charCount">0</span>/600</span>
+            <button class="btn btn-green" onclick="submitConsult()">提交咨询</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 法律援助快查 -->
+    <h3 class="section-title"><span class="icon">📞</span>法律援助快查</h3>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px">
+      <div class="case-card" style="border-left-color:#1976d2">
+        <div class="case-title" style="font-size:15px">🆘 紧急求助热线</div>
+        <div class="case-desc" style="margin-bottom:0">
+          <strong>12348</strong> 全国法律援助热线<br>
+          <strong>12333</strong> 劳动权益（欠薪）<br>
+          <strong>12345</strong> 政务服务热线<br>
+          <strong>110</strong> 家庭暴力报警
+        </div>
+      </div>
+      <div class="case-card" style="border-left-color:#FF8F00">
+        <div class="case-title" style="font-size:15px">🏛️ 北京法律援助机构</div>
+        <div class="case-desc" style="margin-bottom:0">
+          <strong>怀柔区</strong>：怀柔区法律援助中心（010-89355763）<br>
+          <strong>昌平区</strong>：昌平区法律援助中心（010-89743100）<br>
+          <strong>市级</strong>：北京市法律援助基金会<br>
+          农民工法律援助：全程免费
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -195,167 +361,46 @@
 
 {% block extra_script %}
 <script>
-let currentTab = 'consult';
-
 function switchTab(tab) {
-  currentTab = tab;
   document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
   event.currentTarget.classList.add('active');
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById(`${tab}-tab`).classList.add('active');
-  loadTabData(tab);
+  document.getElementById(tab + '-tab').classList.add('active');
 }
 
-function loadTabData(tab) {
-  switch(tab) {
-    case 'consult': loadMyConsults(); break;
-    case 'help': loadPendingConsults(); break;
-    case 'cases': loadResolvedCases(); break;
-  }
+function showConsultForm() {
+  const f = document.getElementById('humanConsultForm');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+function fillTag(text) {
+  const ta = document.getElementById('consultContent');
+  ta.value = text;
+  document.getElementById('charCount').textContent = text.length;
+  ta.focus();
 }
 
 async function submitConsult() {
   const content = document.getElementById('consultContent').value.trim();
-  if (!content) { showToast('请输入咨询内容'); return; }
-  
+  const category = document.getElementById('consultCategory').value;
+  if (!content) { showToast('请输入问题描述'); return; }
   try {
-    const resp = await fetch('/api/volunteer/consult', {
+    await fetch('/api/feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content, category: '法律咨询' })
+      body: JSON.stringify({ content: '[法律咨询-' + category + '] ' + content, contact: '' })
     });
-    const result = await resp.json();
-    if (result.success) {
-      showToast('发布成功！');
-      document.getElementById('consultContent').value = '';
-      document.getElementById('charCount').textContent = '0';
-      loadMyConsults();
-    } else {
-      showToast(result.message || '发布失败');
-    }
-  } catch (e) {
-    showToast('发布失败，请稍后重试');
+    showToast('咨询已提交，志愿者将在1-3工作日内回复');
+    document.getElementById('consultContent').value = '';
+    document.getElementById('charCount').textContent = '0';
+    document.getElementById('humanConsultForm').style.display = 'none';
+  } catch(e) {
+    showToast('提交失败，请稍后重试');
   }
-}
-
-async function loadMyConsults() {
-  try {
-    const resp = await fetch('/api/volunteer/my-consults');
-    const result = await resp.json();
-    const container = document.getElementById('myConsultsList');
-    
-    if (result.success && result.data.length > 0) {
-      container.innerHTML = result.data.map(item => `
-        <div class="consult-item">
-          <div class="item-header">
-            <span class="status-tag status-${item.status}">${getStatusText(item.status)}</span>
-            <span class="item-time">${formatTime(item.createTime)}</span>
-          </div>
-          <div class="item-content">${item.content}</div>
-          <div class="item-footer">
-            <span>${item.category}</span>
-            <span>💬 ${item.replyCount || 0}条回复</span>
-          </div>
-        </div>
-      `).join('');
-    } else {
-      container.innerHTML = '<div class="empty"><span class="emoji">💬</span><div class="text">暂无咨询记录</div></div>';
-    }
-  } catch (e) {
-    document.getElementById('myConsultsList').innerHTML = '<div class="empty"><span class="emoji">❌</span><div class="text">加载失败</div></div>';
-  }
-}
-
-async function loadPendingConsults() {
-  try {
-    const resp = await fetch('/api/volunteer/pending-consults');
-    const result = await resp.json();
-    const container = document.getElementById('pendingConsultsList');
-    
-    if (result.success && result.data.length > 0) {
-      container.innerHTML = result.data.map(item => `
-        <div class="consult-item">
-          <div class="item-header">
-            <span class="status-tag status-pending">待回答</span>
-            <span class="item-time">${formatTime(item.createTime)}</span>
-          </div>
-          <div class="item-content">${item.content}</div>
-          <div class="item-footer">
-            <span>${item.category}</span>
-            <button class="btn btn-green" onclick="answerConsult('${item.id}')">立即回答</button>
-          </div>
-        </div>
-      `).join('');
-    } else {
-      container.innerHTML = '<div class="empty"><span class="emoji">🆘</span><div class="text">暂无待回答咨询</div></div>';
-    }
-  } catch (e) {
-    document.getElementById('pendingConsultsList').innerHTML = '<div class="empty"><span class="emoji">❌</span><div class="text">加载失败</div></div>';
-  }
-}
-
-async function loadResolvedCases() {
-  try {
-    const resp = await fetch('/api/volunteer/resolved-cases');
-    const result = await resp.json();
-    const container = document.getElementById('resolvedCasesList');
-    
-    if (result.success && result.data.length > 0) {
-      container.innerHTML = result.data.map(item => `
-        <div class="case-item">
-          <div class="item-header">
-            <h3 class="case-title">${item.title}</h3>
-            <span class="status-tag status-resolved">已解决</span>
-          </div>
-          <div class="case-tags">
-            ${item.tags.map(tag => `<span class="case-tag">${tag}</span>`).join('')}
-          </div>
-          <div class="item-content">${item.summary}</div>
-          <div class="item-footer">
-            <span>${item.category}</span>
-            <div style="display:flex;gap:14px">
-              <span>👁️ ${item.viewCount}</span>
-              <span>👍 ${item.likeCount}</span>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    } else {
-      container.innerHTML = '<div class="empty"><span class="emoji">✅</span><div class="text">暂无解决案例</div></div>';
-    }
-  } catch (e) {
-    document.getElementById('resolvedCasesList').innerHTML = '<div class="empty"><span class="emoji">❌</span><div class="text">加载失败</div></div>';
-  }
-}
-
-function answerConsult(id) {
-  const answer = prompt('请输入您的回答：');
-  if (answer && answer.trim()) {
-    showToast('回答提交成功！');
-    loadPendingConsults();
-  }
-}
-
-function getStatusText(status) {
-  const map = { 'pending': '待回答', 'answered': '已回答', 'resolved': '已解决', 'closed': '已关闭' };
-  return map[status] || '未知';
-}
-
-function formatTime(timestamp) {
-  const date = new Date(timestamp);
-  const now = new Date();
-  const diff = now - date;
-  if (diff < 60000) return '刚刚';
-  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
-  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
-  if (diff < 604800000) return `${Math.floor(diff / 86400000)}天前`;
-  return date.toLocaleDateString();
 }
 
 document.getElementById('consultContent')?.addEventListener('input', function() {
   document.getElementById('charCount').textContent = this.value.length;
 });
-
-document.addEventListener('DOMContentLoaded', () => loadMyConsults());
 </script>
 {% endblock %}
