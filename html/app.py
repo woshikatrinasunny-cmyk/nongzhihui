@@ -413,6 +413,14 @@ def api_chat_send():
     if not message:
         return jsonify(code=-1, message='请输入消息')
     resp = api_post('/api/chat/send', {'message': message, 'sessionId': session_id}, timeout=90)
+    # 兜底：确保前端始终能拿到 data.reply，避免显示硬编码fallback
+    if not resp.get('data'):
+        err_msg = resp.get('message', '后端连接失败')
+        print(f'[chat] 后端无响应，错误: {err_msg}')
+        resp['data'] = {
+            'reply': f'抱歉，智能助手暂时无法响应（{err_msg[:60]}）。请稍后重试，或前往"志愿服务"页面提交人工咨询。',
+            'sessionId': session_id
+        }
     return jsonify(resp)
 
 @app.route('/api/chat/clear', methods=['POST'])
