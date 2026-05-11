@@ -133,8 +133,20 @@ def api_get(path, params=None, timeout=60):
 def api_post(path, data=None, timeout=60):
     """调用 Node 后端 POST 接口"""
     try:
+        print(f'[API] POST {API_BASE}{path}')
         r = requests.post(f'{API_BASE}{path}', json=data, timeout=timeout)
+        print(f'[API] POST {path} -> {r.status_code} len={len(r.content)}')
+        if r.status_code != 200:
+            return {'code': -1, 'message': f'后端返回 {r.status_code}'}
+        if not r.content or not r.content.strip():
+            return {'code': -1, 'message': '后端返回空响应'}
         return r.json()
+    except requests.exceptions.Timeout:
+        print(f'[API] POST {path} 超时({timeout}s)')
+        return {'code': -1, 'message': f'后端响应超时（{timeout}秒）'}
+    except requests.exceptions.ConnectionError:
+        print(f'[API] POST {path} 连接失败')
+        return {'code': -1, 'message': '后端服务暂不可达，可能正在冷启动，请约30秒后重试'}
     except Exception as e:
         print(f'[API] POST {path} 失败: {e}')
         return {'code': -1, 'message': str(e)}
@@ -417,8 +429,15 @@ def api_chat_send():
     if not resp.get('data'):
         err_msg = resp.get('message', '后端连接失败')
         print(f'[chat] 后端无响应，错误: {err_msg}')
+        # 对用户隐藏技术细节，给出友好提示
+        if '超时' in err_msg or 'timeout' in err_msg.lower():
+            user_hint = '后端响应超时，Render免费实例首次唤醒约需30秒，请稍后再试'
+        elif '冷启动' in err_msg or '不可达' in err_msg or 'Connection' in err_msg:
+            user_hint = '后端服务正在启动中，请等待约30秒后重新发送'
+        else:
+            user_hint = '服务暂时不可用，请稍后重试'
         resp['data'] = {
-            'reply': f'抱歉，智能助手暂时无法响应（{err_msg[:60]}）。请稍后重试，或前往"志愿服务"页面提交人工咨询。',
+            'reply': f'抱歉，智能助手暂时无法响应（{user_hint}）。您也可以前往"志愿服务"页面提交人工咨询。',
             'sessionId': session_id
         }
     return jsonify(resp)
